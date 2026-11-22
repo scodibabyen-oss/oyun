@@ -3,120 +3,392 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Bilgiç Game</title>
+<title>BİLGİÇ GAME'S</title>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#e9e4d8;--fg:#1d1a14;--card:#f6f2e8;--line:#cfc7b4;--acc:#c77d0a;--ok:#1f8a4c;--bad:#d23a2c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181f;--fg:#efe8d8;--card:#1e242e;--line:#2f3846;--acc:#f2b134}}
-:root[data-theme="dark"]{--bg:#14181f;--fg:#efe8d8;--card:#1e242e;--line:#2f3846;--acc:#f2b134}
-html,body{margin:0;background:var(--bg);color:var(--fg);font-family:'Bricolage Grotesque',system-ui,sans-serif;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
-body{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px;min-height:100vh}
+:root{
+  --bg:#efe8ff;
+  --bg2:#ffe8f2;
+  --fg:#1c172b;
+  --card:#ffffff;
+  --line:#d6ccf0;
+  --acc:#ff6b2b;
+  --acc2:#7c3aed;
+  --ok:#16a34a;
+  --bad:#dc2626;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#120f24;
+    --bg2:#231438;
+    --fg:#f5f0ff;
+    --card:#1d1836;
+    --line:#352c5e;
+    --acc:#ff8533;
+    --acc2:#a855f7;
+    --ok:#22c55e;
+    --bad:#ef4444;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#120f24;
+  --bg2:#231438;
+  --fg:#f5f0ff;
+  --card:#1d1836;
+  --line:#352c5e;
+  --acc:#ff8533;
+  --acc2:#a855f7;
+  --ok:#22c55e;
+  --bad:#ef4444;
+}
+
+html,body{
+  margin:0;
+  background:radial-gradient(circle at 15% 15%, var(--bg2), transparent 50%), radial-gradient(circle at 85% 80%, rgba(124,58,237,.16), transparent 55%), var(--bg);
+  color:var(--fg);
+  font-family:'Bricolage Grotesque',system-ui,sans-serif;
+  overscroll-behavior:none;
+  -webkit-user-select:none;
+  user-select:none;
+}
+body{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  min-height:100vh;
+}
+
+/* Giris Animasyonu */
+.brand-anim{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:4px 8px;
+  margin:0;
+  font-size:clamp(2rem, 6vw, 3.3rem);
+  font-weight:800;
+  letter-spacing:.03em;
+}
+.brand-word{display:inline-flex}
+.brand-char{
+  display:inline-block;
+  background:linear-gradient(135deg, var(--acc), var(--acc2), #ec4899);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  opacity:0;
+  transform:translateY(-26px) scale(.65) rotate(-8deg);
+  animation:popIn .55s cubic-bezier(.34,1.56,.64,1) forwards;
+  animation-delay:calc(var(--i) * 55ms);
+}
+.brand-anim:hover .brand-char{
+  animation:wobble .5s ease;
+  animation-delay:calc(var(--i) * 30ms);
+}
+@keyframes popIn{
+  to{opacity:1;transform:translateY(0) scale(1) rotate(0deg)}
+}
+@keyframes wobble{
+  0%,100%{transform:translateY(0) scale(1)}
+  40%{transform:translateY(-9px) scale(1.12)}
+  75%{transform:translateY(3px) scale(.97)}
+}
+@media (prefers-reduced-motion:reduce){
+  .brand-char{opacity:1;transform:none;animation:none}
+}
+
 .hud{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:1080px}
-.p{background:var(--card);border:2px solid var(--line);border-radius:10px;padding:8px 12px;transition:border-color .2s}
-.p.on{border-color:var(--acc)}
+.p{
+  background:var(--card);
+  border:2px solid var(--line);
+  border-radius:14px;
+  padding:10px 14px;
+  transition:border-color .2s, transform .2s, box-shadow .2s;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+}
+.p.on{
+  border-color:var(--acc);
+  box-shadow:0 0 0 3px rgba(255,107,43,.22), 0 8px 20px rgba(0,0,0,.1);
+  transform:translateY(-1px);
+}
+.p-head{display:flex;align-items:center;gap:8px}
+.av-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:linear-gradient(135deg, rgba(255,107,43,.18), rgba(124,58,237,.22));
+  border:1.5px solid var(--line);
+  font-size:1.25rem;
+  flex-shrink:0;
+}
 .p b{font-weight:800;font-size:1.05rem}
-.p small{display:block;opacity:.75;margin:2px 0 6px}
+.p small{display:block;opacity:.78;margin:4px 0 6px}
 .dots{display:flex;gap:4px;min-height:16px;flex-wrap:wrap}
 .dot{width:16px;height:16px;border-radius:50%;box-shadow:inset -2px -2px 3px rgba(0,0,0,.35)}
-canvas{width:100%;max-width:1080px;border-radius:14px;touch-action:none;display:block;cursor:crosshair}
+
+canvas{
+  width:100%;
+  max-width:1080px;
+  border-radius:16px;
+  touch-action:none;
+  display:block;
+  cursor:crosshair;
+  box-shadow:0 10px 28px rgba(0,0,0,.12);
+}
+
 .bar{display:flex;gap:10px;align-items:center;width:100%;max-width:1080px;flex-wrap:wrap}
-#m{flex:1;font-size:1rem;min-height:1.4em;font-weight:500}
-button{font:inherit;font-weight:800;background:var(--acc);color:#14181f;border:0;border-radius:8px;padding:8px 16px;cursor:pointer;transition:transform .08s ease,opacity .15s ease}
-button:active{transform:scale(.97)}
-button:disabled{opacity:.45;cursor:not-allowed}
-button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
-.ov{position:fixed;inset:0;z-index:5;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center;overflow:auto}
+#m{
+  flex:1;
+  font-size:1rem;
+  min-height:1.4em;
+  font-weight:800;
+  background:var(--card);
+  border:2px solid var(--line);
+  border-radius:10px;
+  padding:8px 12px;
+}
+
+button{
+  font:inherit;
+  font-weight:800;
+  background:linear-gradient(135deg, var(--acc), #f59e0b);
+  color:#14181f;
+  border:0;
+  border-radius:10px;
+  padding:9px 16px;
+  cursor:pointer;
+  transition:transform .1s ease, opacity .15s ease, box-shadow .15s ease;
+  box-shadow:0 4px 12px rgba(255,107,43,.28);
+}
+button:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 16px rgba(255,107,43,.36)}
+button:active:not(:disabled){transform:scale(.97)}
+button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+button:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+
+.ov{
+  position:fixed;
+  inset:0;
+  z-index:5;
+  background:radial-gradient(circle at 20% 20%, var(--bg2), transparent 55%), radial-gradient(circle at 80% 80%, rgba(124,58,237,.2), transparent 55%), var(--bg);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  padding:20px;
+  text-align:center;
+  overflow:auto;
+}
 .ov[hidden]{display:none}
-.ov h1{font-size:2.4rem;margin:0;font-weight:800}
-.ov p{margin:0;max-width:36ch}
+.ov p{margin:0;max-width:38ch}
 [hidden]{display:none!important}
-#alt{width:100%;max-width:1080px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:16px;box-sizing:border-box}
-#alt .sc{display:flex;justify-content:space-around;font-size:1.05rem;margin-bottom:12px;gap:8px;flex-wrap:wrap}
+
+#alt{
+  width:100%;
+  max-width:1080px;
+  background:var(--card);
+  border:2px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+  box-sizing:border-box;
+  box-shadow:0 10px 26px rgba(0,0,0,.08);
+}
+#alt .sc{
+  display:flex;
+  justify-content:space-around;
+  font-size:1.05rem;
+  margin-bottom:12px;
+  gap:8px;
+  flex-wrap:wrap;
+  background:var(--bg);
+  padding:10px;
+  border-radius:12px;
+  border:1.5px solid var(--line);
+}
 #alt .sc .on{color:var(--acc);font-weight:800}
 .mg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:420px;margin:0 auto}
-.cd{font-size:2rem;aspect-ratio:1;background:var(--line);color:var(--fg);padding:0}
-.cd.up{background:var(--bg)}
+.cd{font-size:2rem;aspect-ratio:1;background:var(--line);color:var(--fg);padding:0;box-shadow:none}
+.cd.up{background:var(--bg);border:2px solid var(--acc2)}
 #alt ul{list-style:none;padding:0;margin:0 0 12px;max-height:220px;overflow:auto}
-#alt li{padding:4px 0;border-bottom:1px solid var(--line)}
-#alt input{font:inherit;padding:8px;border-radius:8px;border:2px solid var(--line);background:var(--bg);color:var(--fg);width:120px}
-.ov input{font:inherit;font-size:1.1rem;padding:10px 14px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--fg);width:min(260px,70vw);margin-right:8px}
-.turn{color:var(--acc);display:inline-block;animation:pl 1s ease-in-out infinite}
-@keyframes pl{50%{transform:translateX(3px);opacity:.5}}
-@media (prefers-reduced-motion:reduce){.turn{animation:none}}
-.menu{display:flex;flex-direction:column;gap:10px;width:min(420px,100%)}
-.menu input{width:100%;box-sizing:border-box;margin:0}
-.menu p{font-size:.9rem;opacity:.8}
+#alt li{padding:5px 2px;border-bottom:1px solid var(--line)}
+#alt input{font:inherit;padding:8px 10px;border-radius:8px;border:2px solid var(--line);background:var(--bg);color:var(--fg);width:130px}
+
+.menu{display:flex;flex-direction:column;gap:12px;width:min(460px,100%);background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 12px 30px rgba(0,0,0,.1)}
+.profile-row{display:flex;flex-direction:column;gap:8px}
+.menu input{
+  width:100%;
+  box-sizing:border-box;
+  font:inherit;
+  font-size:1.05rem;
+  padding:10px 14px;
+  border-radius:10px;
+  border:2px solid var(--line);
+  background:var(--bg);
+  color:var(--fg);
+}
+.menu input:focus{outline:none;border-color:var(--acc2)}
+.av-picker{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:6px;
+}
+.av-opt{
+  aspect-ratio:1;
+  padding:0;
+  font-size:1.35rem;
+  background:var(--bg);
+  color:var(--fg);
+  border:2px solid var(--line);
+  border-radius:10px;
+  box-shadow:none;
+}
+.av-opt.picked{
+  border-color:var(--acc);
+  background:linear-gradient(135deg, rgba(255,107,43,.22), rgba(124,58,237,.22));
+  transform:scale(1.06);
+}
+.menu p{font-size:.9rem;opacity:.85}
 .gs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.gs button,.chat button{background:var(--card);color:var(--fg);border:2px solid var(--line)}
-.gs button:hover,.chat button:hover{border-color:var(--acc)}
+.gs button,.chat button{
+  background:var(--bg);
+  color:var(--fg);
+  border:2px solid var(--line);
+  box-shadow:none;
+}
+.gs button:hover,.chat button:hover{border-color:var(--acc);background:var(--card)}
 .chat{display:flex;gap:6px;flex-wrap:wrap;width:100%;max-width:1080px}
-.chat button{font-weight:500;padding:6px 10px;font-size:.9rem}
-#tt{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 10px);transform:translateX(-50%);background:var(--acc);color:#14181f;padding:8px 16px;border-radius:20px;font-weight:800;z-index:9;max-width:90vw;text-align:center}
+.chat button{font-weight:700;padding:6px 10px;font-size:.9rem}
+
+#tt{
+  position:fixed;
+  left:50%;
+  top:calc(env(safe-area-inset-top,0px) + 10px);
+  transform:translateX(-50%);
+  background:linear-gradient(135deg, var(--acc), var(--acc2));
+  color:#fff;
+  padding:8px 18px;
+  border-radius:20px;
+  font-weight:800;
+  z-index:9;
+  max-width:90vw;
+  text-align:center;
+  box-shadow:0 8px 20px rgba(0,0,0,.22);
+}
 .big{font-size:2.4rem;font-weight:800;text-align:center;margin:8px 0}
 .big2{font-size:1.1rem;font-weight:800;text-align:center}
 #alt p{margin:8px 0;text-align:center}
-.dur{font-size:1.5rem;padding:16px 36px;display:block;margin:12px auto;touch-action:manipulation}
+.dur{font-size:1.45rem;padding:15px 34px;display:block;margin:12px auto;touch-action:manipulation}
 .pb{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px auto;max-width:420px}
-.pb button{font-size:1.2rem;padding:16px 6px}
+.pb button{font-size:1.15rem;padding:15px 6px}
 .pb small{font-size:.75rem}
-#sb{width:100%;max-width:1080px;background:var(--card);border:2px solid var(--acc);border-radius:10px;padding:8px 12px;box-sizing:border-box;text-align:center;font-weight:800}
+#sb{
+  width:100%;
+  max-width:1080px;
+  background:var(--card);
+  border:2px solid var(--acc2);
+  border-radius:12px;
+  padding:8px 12px;
+  box-sizing:border-box;
+  text-align:center;
+  font-weight:800;
+}
 input{-webkit-user-select:text;user-select:text}
-#dl{position:fixed;inset:0;z-index:8;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:20px}
-#dlc{background:var(--card);border:2px solid var(--acc);border-radius:14px;padding:20px;width:min(380px,100%);box-sizing:border-box;text-align:center;display:flex;flex-direction:column;gap:10px}
+#dl{position:fixed;inset:0;z-index:8;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;padding:20px}
+#dlc{background:var(--card);border:2px solid var(--acc);border-radius:16px;padding:20px;width:min(380px,100%);box-sizing:border-box;text-align:center;display:flex;flex-direction:column;gap:10px}
 #dlc h2{margin:0;font-size:1.25rem}#dlc p{margin:0}
 #hint{font-size:.8rem;opacity:.8;text-align:center}
 
-/* Düz Araba Pisti & Yuvarlak İşaretçiler */
+/* Duz Araba Pisti & Yuvarlak Isaretciler */
 .track-wrap{display:flex;flex-direction:column;gap:10px;margin:10px 0}
-.road{position:relative;background:#26292e;border:3px solid #444b55;border-radius:14px;padding:12px 14px;overflow:hidden}
-.lane{position:relative;height:44px;display:flex;align-items:center;border-bottom:2px dashed rgba(255,255,255,.22)}
+.road{position:relative;background:linear-gradient(180deg,#1f2430,#2a3142);border:3px solid var(--acc2);border-radius:14px;padding:12px 14px;overflow:hidden}
+.lane{position:relative;height:46px;display:flex;align-items:center;border-bottom:2px dashed rgba(255,255,255,.24)}
 .lane:last-child{border-bottom:0}
-.lane-lbl{position:absolute;left:8px;font-size:.72rem;opacity:.7;color:#fff;pointer-events:none;z-index:1}
-.cp-ring{position:absolute;top:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;border:3px solid rgba(242,177,52,.65);background:rgba(242,177,52,.12);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#f2b134;font-weight:800;pointer-events:none}
-.cp-ring.done{border-color:#2ecc71;background:rgba(46,204,113,.25);color:#2ecc71}
-.car-tok{position:absolute;left:0;top:50%;transform:translateY(-50%);font-size:1.75rem;line-height:1;transition:left .06s linear,transform .08s ease;z-index:2;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
-.car-tok.hit{filter:drop-shadow(0 0 8px #ff3b30)}
+.lane-lbl{position:absolute;left:8px;font-size:.74rem;opacity:.82;color:#fff;pointer-events:none;z-index:1;font-weight:800}
+.cp-ring{position:absolute;top:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;border:3px solid rgba(250,204,21,.75);background:rgba(250,204,21,.15);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fde047;font-weight:800;pointer-events:none}
+.cp-ring.done{border-color:#22c55e;background:rgba(34,197,94,.3);color:#86efac}
+.car-tok{position:absolute;left:0;top:50%;transform:translateY(-50%);font-size:1.75rem;line-height:1;transition:left .06s linear,transform .08s ease;z-index:2;filter:drop-shadow(0 2px 4px rgba(0,0,0,.55))}
+.car-tok.hit{filter:drop-shadow(0 0 8px #ef4444)}
 .car-ctrls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
-/* Emoji Ezber & Sürükle-Bırak */
-.emo-layout{display:grid;grid-template-columns:1fr 220px;gap:14px;align-items:start;margin-top:10px}
+/* Emoji Ezber & Surukle-Birak */
+.emo-layout{display:grid;grid-template-columns:1fr 235px;gap:14px;align-items:start;margin-top:10px}
 @media (max-width:760px){.emo-layout{grid-template-columns:1fr}}
-.emo-board{display:flex;flex-direction:column;gap:10px;background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px}
+.emo-board{display:flex;flex-direction:column;gap:10px;background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:12px}
 .emo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.emo-slot{aspect-ratio:1.25;border:2px dashed var(--line);border-radius:12px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:2.2rem;cursor:pointer;position:relative;transition:border-color .15s,background .15s}
-.emo-slot.over{border-color:var(--acc);background:rgba(242,177,52,.15)}
-.emo-slot.filled{border-style:solid;border-color:var(--acc)}
-.emo-slot .idx{position:absolute;top:5px;left:8px;font-size:.7rem;opacity:.55;font-weight:800}
-.emo-dock{background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
-.emo-dock-title{font-size:.85rem;font-weight:800;text-align:center;opacity:.85}
+.emo-slot{
+  aspect-ratio:1.25;
+  border:2px dashed var(--line);
+  border-radius:12px;
+  background:var(--card);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.2rem;
+  cursor:pointer;
+  position:relative;
+  transition:border-color .15s,background .15s,transform .12s;
+}
+.emo-slot.over{border-color:var(--acc);background:rgba(255,107,43,.16);transform:scale(1.02)}
+.emo-slot.filled{border-style:solid;border-color:var(--acc2)}
+.emo-slot.correct{border-style:solid;border-color:var(--ok);background:rgba(22,163,74,.18)}
+.emo-slot.wrong{border-style:solid;border-color:var(--bad);background:rgba(220,38,38,.18)}
+.emo-slot .idx{position:absolute;top:5px;left:8px;font-size:.7rem;opacity:.65;font-weight:800}
+.emo-slot .tag{position:absolute;bottom:4px;right:7px;font-size:.68rem;font-weight:800}
+.emo-slot.correct .tag{color:var(--ok)}
+.emo-slot.wrong .tag{color:var(--bad)}
+.emo-dock{background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.emo-dock-title{font-size:.88rem;font-weight:800;text-align:center;color:var(--acc2)}
 .emo-pool{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.emo-chip{aspect-ratio:1;border:2px solid var(--line);border-radius:10px;background:var(--card);font-size:1.9rem;display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none}
+.emo-chip{
+  aspect-ratio:1;
+  border:2px solid var(--line);
+  border-radius:10px;
+  background:var(--card);
+  font-size:1.9rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:grab;
+  touch-action:none;
+}
 .emo-chip:active{cursor:grabbing}
 .emo-chip.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc)}
 .emo-chip.used{opacity:.25;pointer-events:none}
-.prog-bar{width:100%;max-width:420px;height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin:8px auto}
-.prog-fill{height:100%;background:var(--acc);transition:width .25s linear}
+.prog-bar{width:100%;max-width:420px;height:12px;background:var(--line);border-radius:999px;overflow:hidden;margin:8px auto}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .25s linear}
 
 /* Hedef Vurma */
 .aim-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:440px;margin:12px auto}
-.aim-cell{aspect-ratio:1;border-radius:12px;border:2px solid var(--line);background:var(--bg);font-size:1.8rem;display:flex;align-items:center;justify-content:center;padding:0}
-.aim-cell.active{background:var(--acc);border-color:var(--fg)}
+.aim-cell{aspect-ratio:1;border-radius:12px;border:2px solid var(--line);background:var(--bg);font-size:1.8rem;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:none}
+.aim-cell.active{background:linear-gradient(135deg,var(--acc),var(--acc2));border-color:var(--fg)}
 
 @media (min-width:641px),(orientation:landscape){#hint{display:none!important}}
 @media (max-width:640px){
- body{padding:8px;gap:8px}.hud{gap:6px}.p{padding:6px 8px}.p b{font-size:.95rem}.p small{font-size:.72rem}
- .dot{width:12px;height:12px}.ov h1{font-size:1.9rem}button{padding:10px 12px}#m{font-size:.9rem}
- .chat button{font-size:.8rem;padding:6px 8px}.big{font-size:2rem}#alt{padding:10px}.cd{font-size:1.6rem}#sb{font-size:.85rem}
+  body{padding:8px;gap:8px}.hud{gap:6px}.p{padding:7px 9px}.p b{font-size:.95rem}.p small{font-size:.72rem}
+  .dot{width:12px;height:12px}.menu{padding:14px}.av-picker{grid-template-columns:repeat(6,1fr)}
+  button{padding:9px 12px}#m{font-size:.9rem}.chat button{font-size:.8rem;padding:6px 8px}
+  .big{font-size:2rem}#alt{padding:10px}.cd{font-size:1.6rem}#sb{font-size:.85rem}
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
 <body>
 <div class="ov" id="ov">
-  <h1>Bilgiç Game</h1>
-  <p>Takma adını yaz, istediğin oyunu seç ya da rastgele eşleş.</p>
+  <h1 class="brand-anim" id="brandTitle" aria-label="BİLGİÇ GAME'S"></h1>
+  <p>Avatarını ve takma adını seç, istediğin oyunu aç ya da rastgele rakip bul.</p>
   <div id="s1" class="menu">
-    <input id="nk" maxlength="14" placeholder="Takma adın" autocomplete="off">
+    <div class="profile-row">
+      <input id="nk" maxlength="14" placeholder="Takma adın" autocomplete="off">
+      <div class="av-picker" id="avPicker" title="Avatar seç"></div>
+    </div>
     <button data-w="any">🎲 Rastgele eşleştir</button>
     <p>veya oynamak istediğin oyunu seç:</p>
     <div class="gs">
@@ -156,13 +428,40 @@ input{-webkit-user-select:text;user-select:text}
 <div id="hint" hidden>📱 Bilardo için telefonu yatay çevir</div>
 
 <script>
+/* ---------- Giris Animasyonu & Avatarlar ---------- */
+const AVATARS=['🦊','🐼','🦁','🐯','🐸','🐧','🤖','👾','🦄','🐲','🐺','🦉','🐙',' Koala'.trim(),'🐵','😎'];
+AVATARS[13]='🐨';
+let MY_AV=AVATARS[0];
+
+(function buildBrand(){
+  const el=document.getElementById('brandTitle');
+  const words=["BİLGİÇ","GAME'S"];
+  let idx=0;
+  el.innerHTML=words.map(w=>{
+    const spans=[...w].map(ch=>`<span class="brand-char" style="--i:${idx++}">${ch}</span>`).join('');
+    return `<span class="brand-word">${spans}</span>`;
+  }).join('');
+})();
+
+(function buildAvPicker(){
+  const box=document.getElementById('avPicker');
+  box.innerHTML=AVATARS.map((av,i)=>`<button type="button" class="av-opt${i===0?' picked':''}" data-av="${av}">${av}</button>`).join('');
+  box.onclick=e=>{
+    const b=e.target.closest('[data-av]');
+    if(!b)return;
+    MY_AV=b.dataset.av;
+    box.querySelectorAll('.av-opt').forEach(x=>x.classList.toggle('picked',x===b));
+  };
+})();
+
+/* ---------- Bilardo ---------- */
 const cv=document.getElementById('c'),g=cv.getContext('2d'),M=document.getElementById('m');
 const CW=1080,CH=580,L=40,T=40,RR=1040,B=540,BR=11,CY=290;
 const COL=['#f4f1e6','#f2c230','#2455b8','#d23a2c','#5b2a86','#ef7a1a','#1f8a4c','#7a1d26','#15171a'];
 const PK=[[L,T,26],[RR,T,26],[L,B,26],[RR,B,26],[540,T,23],[540,B,23]];
 const F=Math.pow(0.9895,0.1);
-let balls,st,cur,grp,firstHit,pot,drag=false,mouse={x:0,y:0},breakShot,ownBefore,ang=0,pw=0,winner=-1,hs='',me=0,isHost=true,online=false,conn=null,nicks=['Oyuncu 1','Oyuncu 2'];
-const gc=n=>n>8?n-8:n, gi=n=>n>8?1:0, nm=i=>nicks[i]||'Oyuncu '+(i+1);
+let balls,st,cur,grp,firstHit,pot,drag=false,mouse={x:0,y:0},breakShot,ownBefore,ang=0,pw=0,winner=-1,hs='',me=0,isHost=true,online=false,conn=null,nicks=['Oyuncu 1','Oyuncu 2'],avatars=['🦊','🐼'];
+const gc=n=>n>8?n-8:n, gi=n=>n>8?1:0, nm=i=>nicks[i]||'Oyuncu '+(i+1), av=i=>avatars[i]||'🦊';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
 
 function reset(nums){
@@ -185,7 +484,7 @@ function prompt_(extra=''){
   M.textContent=extra+t;
 }
 function hud(){
-  const sig=JSON.stringify([cur,grp,st,me,online,nicks,balls.map(b=>b.on)]);
+  const sig=JSON.stringify([cur,grp,st,me,online,nicks,avatars,balls.map(b=>b.on)]);
   if(sig===hs)return;hs=sig;
   for(let i=0;i<2;i++){
     const e=document.getElementById('p'+i);
@@ -198,7 +497,7 @@ function hud(){
         d+=`<span class="dot" style="background:${bg};opacity:${b&&b.on?1:.2}"></span>`;
       }
     }
-    e.innerHTML=`<b>${st!='over'&&i==cur?'<span class="turn">▶</span> ':''}${esc(nm(i))}${online&&i==me?' (sen)':''}</b><small>${grp[i]==null?'Masa açık':(grp[i]?'Çizgili':'Düz')+' · '+(7-left(grp[i]))+' sokuldu · '+left(grp[i])+' kaldı'}</small><div class="dots">${d}</div>`;
+    e.innerHTML=`<div class="p-head"><span class="av-badge">${av(i)}</span><b>${st!='over'&&i==cur?'<span class="turn">▶</span> ':''}${esc(nm(i))}${online&&i==me?' (sen)':''}</b></div><small>${grp[i]==null?'Masa açık':(grp[i]?'Çizgili':'Düz')+' · '+(7-left(grp[i]))+' sokuldu · '+left(grp[i])+' kaldı'}</small><div class="dots">${d}</div>`;
   }
 }
 function step(){
@@ -247,7 +546,7 @@ function resolve(){
     else{
       const ok=grp[meP]!=null&&cleared&&!foul;
       winner=ok?meP:op;st='over';
-      M.textContent=nm(winner)+' kazandı! '+(ok?'8 numaralı top girdi.':nm(meP)+' 8 numaralı topu erken ya da faulle soktu.');
+      M.textContent=av(winner)+' '+nm(winner)+' kazandı! '+(ok?'8 numaralı top girdi.':nm(meP)+' 8 numaralı topu erken ya da faulle soktu.');
       hud();if(online&&isHost)addWin(winner);return;
     }
   }
@@ -303,15 +602,15 @@ function ball(b,x,y){
   g.fillStyle=r;g.fillRect(x-BR,y-BR,2*BR,2*BR);g.restore();
 }
 function table(){
-  const w=g.createLinearGradient(0,0,0,CH);w.addColorStop(0,'#74431f');w.addColorStop(1,'#46270f');
+  const w=g.createLinearGradient(0,0,0,CH);w.addColorStop(0,'#7c3aed');w.addColorStop(1,'#3b0764');
   g.fillStyle=w;g.beginPath();g.roundRect(0,0,CW,CH,18);g.fill();
-  g.fillStyle='#e8d9b0';
+  g.fillStyle='#fde68a';
   for(let i=1;i<8;i++)if(i!=4)for(const y of[20,560]){g.beginPath();g.arc(L+i*125,y,3,0,7);g.fill()}
   for(let j=1;j<4;j++)for(const x of[20,1060]){g.beginPath();g.arc(x,T+j*125,3,0,7);g.fill()}
-  g.fillStyle='#0a4636';g.fillRect(L-22,T-22,RR-L+44,B-T+44);
-  const f=g.createRadialGradient(540,CY,60,540,CY,620);f.addColorStop(0,'#14805e');f.addColorStop(1,'#0c5a43');
+  g.fillStyle='#064e3b';g.fillRect(L-22,T-22,RR-L+44,B-T+44);
+  const f=g.createRadialGradient(540,CY,60,540,CY,620);f.addColorStop(0,'#10b981');f.addColorStop(1,'#047857');
   g.fillStyle=f;g.fillRect(L,T,RR-L,B-T);
-  g.fillStyle='rgba(255,255,255,.12)';g.fillRect(290,T,1,B-T);
+  g.fillStyle='rgba(255,255,255,.14)';g.fillRect(290,T,1,B-T);
   g.fillStyle='#050807';
   for(const p of PK){g.beginPath();g.arc(p[0],p[1],p[2],0,7);g.fill()}
 }
@@ -325,18 +624,18 @@ function aimLine(c){
     const fx=c.x-b.x,fy=c.y-b.y,bb=fx*dx+fy*dy,cc=fx*fx+fy*fy-4*BR*BR,D=bb*bb-cc;
     if(D>=0){const tt=-bb-Math.sqrt(D);if(tt>0&&tt<t){t=tt;hit=b}}}
   const ex=c.x+dx*t,ey=c.y+dy*t;
-  g.setLineDash([6,6]);g.strokeStyle='rgba(255,255,255,.7)';g.lineWidth=1.5;
+  g.setLineDash([6,6]);g.strokeStyle='rgba(255,255,255,.75)';g.lineWidth=1.5;
   g.beginPath();g.moveTo(c.x,c.y);g.lineTo(ex,ey);g.stroke();g.setLineDash([]);
   g.beginPath();g.arc(ex,ey,BR,0,7);g.stroke();
   if(hit){const hx=hit.x-ex,hy=hit.y-ey,hl=Math.hypot(hx,hy);
-    if(hl>0){g.strokeStyle='#f2b134';g.lineWidth=2;g.beginPath();g.moveTo(hit.x,hit.y);g.lineTo(hit.x+hx/hl*50,hit.y+hy/hl*50);g.stroke()}}
+    if(hl>0){g.strokeStyle='#facc15';g.lineWidth=2;g.beginPath();g.moveTo(hit.x,hit.y);g.lineTo(hit.x+hx/hl*50,hit.y+hy/hl*50);g.stroke()}}
 }
 function cue(c){
   const dx=Math.cos(ang),dy=Math.sin(ang),gap=BR+4+pw*80;
   const sx=c.x-dx*gap,sy=c.y-dy*gap;
   g.lineCap='round';
-  g.strokeStyle='#e8c98a';g.lineWidth=4;g.beginPath();g.moveTo(sx,sy);g.lineTo(sx-dx*150,sy-dy*150);g.stroke();
-  g.strokeStyle='#2c1a0b';g.lineWidth=7;g.beginPath();g.moveTo(sx-dx*150,sy-dy*150);g.lineTo(sx-dx*300,sy-dy*300);g.stroke();
+  g.strokeStyle='#fde68a';g.lineWidth=4;g.beginPath();g.moveTo(sx,sy);g.lineTo(sx-dx*150,sy-dy*150);g.stroke();
+  g.strokeStyle='#3b0764';g.lineWidth=7;g.beginPath();g.moveTo(sx-dx*150,sy-dy*150);g.lineTo(sx-dx*300,sy-dy*300);g.stroke();
   g.lineCap='butt';
 }
 function draw(){
@@ -348,15 +647,15 @@ function draw(){
     if(drag&&pw>0)aimLine(c);
     cue(c);
     g.fillStyle='rgba(0,0,0,.35)';g.fillRect(L,560,220,6);
-    g.fillStyle=pw>.7?'#d23a2c':'#f2b134';g.fillRect(L,560,220*pw,6);
+    g.fillStyle=pw>.7?'#ef4444':'#facc15';g.fillRect(L,560,220*pw,6);
   }else if(st=='hand'){
     const ok=valid(mouse);g.globalAlpha=ok?1:.35;
     ball({n:0},mouse.x,mouse.y);g.globalAlpha=1;
   }
 }
 
-/* ---------- Online & Eşleştirme ---------- */
-const $=id=>document.getElementById(id),LOBBY='bil8-lobby-v1';
+/* ---------- Online & Eslestirme ---------- */
+const $=id=>document.getElementById(id),LOBBY='bil8-lobby-v2';
 let peer,bc,brokerMode=false,waiting=[],wt,hostWait=false,NICK='';
 function say(t){$('s2').textContent=t}
 function show(s){$('ov').hidden=s=='game';$('s1').hidden=s!='nick';$('s2').hidden=s=='nick';$('cn').hidden=s!='lobby';$('ch').hidden=s!='game'}
@@ -381,9 +680,12 @@ function hostData(m){
   else if(m.t=='p'&&st=='hand'&&valid({x:+m.x,y:+m.y}))place({x:+m.x,y:+m.y});
 }
 function guestData(m){
-  if(m.t=='i'){clearTimeout(wt);nicks=m.nicks;me=1;isHost=false;online=true;GM=m.game;END=false;dlgHide();if(!m.re)SB=[0,0];
+  if(m.t=='i'){
+    clearTimeout(wt);nicks=m.nicks;avatars=m.avatars||avatars;me=1;isHost=false;online=true;GM=m.game;END=false;dlgHide();
+    if(!m.re)SB=[0,0];
     if(GM=='pool'){reset(m.nums);hs='';hud()}else{$('alt').innerHTML='';krid=-1;kdone=-1}
-    setView();show('game')}
+    setView();show('game');
+  }
   else if(m.t=='S'&&online&&GM=='pool')applyS(m);
   else if(m.t=='A'&&online)renderAlt(m);
   else if(m.t=='B')SB=m.sb;
@@ -395,12 +697,12 @@ function oppLeft(){
   clearTimers();
   if(GM=='pool'){if(st!='over'){st='over';winner=me;hs='';hud()}}else A=null;
   M.textContent='Rakip oyundan ayrıldı.';
-  dlg(`<h2>🚪 ${esc(nicks[1-me])} oyundan çıktı</h2><p>Bağlantı kapandı. Yeni bir rakip bulabilir ya da menüye dönebilirsin.</p><button data-a="find">Yeni rakip bul</button><button data-a="menu">Menü</button>`);
+  dlg(`<h2>🚪 ${av(1-me)} ${esc(nicks[1-me])} oyundan çıktı</h2><p>Bağlantı kapandı. Yeni bir rakip bulabilir ya da menüye dönebilirsin.</p><button data-a="find">Yeni rakip bul</button><button data-a="menu">Menü</button>`);
 }
-function startHost(c,nick){
-  clearTimeout(wt);hostWait=false;conn=c;isHost=true;me=0;online=true;nicks=[NICK,nick];SB=[0,0];END=false;
-  if(GM=='pool'){reset();hs='';hud();c.send({t:'i',game:GM,nums:balls.slice(1).map(b=>b.n),nicks})}
-  else{c.send({t:'i',game:GM,nicks});initAlt()}
+function startHost(c,nick,oppAv){
+  clearTimeout(wt);hostWait=false;conn=c;isHost=true;me=0;online=true;nicks=[NICK,nick];avatars=[MY_AV,oppAv||AVATARS[1]];SB=[0,0];END=false;
+  if(GM=='pool'){reset();hs='';hud();c.send({t:'i',game:GM,nums:balls.slice(1).map(b=>b.n),nicks,avatars})}
+  else{c.send({t:'i',game:GM,nicks,avatars});initAlt()}
   setView();
   c.on('data',hostData);c.on('close',oppLeft);show('game');
 }
@@ -411,7 +713,7 @@ function tryMatch(){
     if(a.want!=b.want&&a.want!='any'&&b.want!='any')continue;
     waiting.splice(j,1);waiting.splice(i,1);
     const w=a.want!='any'?a.want:b.want,g=w!='any'?w:GAMES[Math.floor(Math.random()*GAMES.length)];
-    const ma={t:'m',r:0,o:b.nick,g},mb={t:'m',r:1,o:a.nick,h:a.id,g};
+    const ma={t:'m',r:0,o:b.nick,oa:b.av,g},mb={t:'m',r:1,o:a.nick,oa:a.av,h:a.id,g};
     a.conn?a.conn.send(ma):onMatch(ma);
     b.conn?b.conn.send(mb):onMatch(mb);
     return tryMatch();
@@ -419,13 +721,13 @@ function tryMatch(){
 }
 function onMatch(m){
   if(m.t!='m')return;
-  say('Rakip bulundu: '+String(m.o)+'. Bağlanılıyor…');
+  say((m.oa||'🎮')+' Rakip bulundu: '+String(m.o)+'. Bağlanılıyor…');
   clearTimeout(wt);
   wt=setTimeout(()=>{if(!online){say('Bağlantı kurulamadı, yeniden aranıyor…');hostWait=false;rejoin()}},15000);
-  if(m.r==0){hostWait=true;GM=m.g;nicks=[NICK,String(m.o).slice(0,14)]}
+  if(m.r==0){hostWait=true;GM=m.g;nicks=[NICK,String(m.o).slice(0,14)];avatars=[MY_AV,m.oa||AVATARS[1]]}
   else{
     const c=peer.connect(m.h,{reliable:true});
-    c.on('open',()=>c.send({t:'g',nick:NICK}));
+    c.on('open',()=>c.send({t:'g',nick:NICK,av:MY_AV}));
     c.on('data',guestData);c.on('close',oppLeft);conn=c;
   }
 }
@@ -433,16 +735,16 @@ function wire(p){
   p.on('connection',c=>{
     c.on('close',()=>{waiting=waiting.filter(w=>w.conn!=c)});
     c.on('data',m=>{
-      if(m.t=='hi'){waiting=waiting.filter(w=>w.conn!=c);waiting.push({id:c.peer,nick:String(m.nick).slice(0,14),want:GAMES.includes(m.want)?m.want:'any',conn:c});tryMatch()}
-      else if(m.t=='g'&&hostWait)startHost(c,String(m.nick).slice(0,14));
+      if(m.t=='hi'){waiting=waiting.filter(w=>w.conn!=c);waiting.push({id:c.peer,nick:String(m.nick).slice(0,14),av:m.av||AVATARS[0],want:GAMES.includes(m.want)?m.want:'any',conn:c});tryMatch()}
+      else if(m.t=='g'&&hostWait)startHost(c,String(m.nick).slice(0,14),m.av);
     });
   });
 }
 function rejoin(){
   say(srch());
   if(brokerMode&&peer&&!peer.destroyed){
-    waiting=waiting.filter(w=>w.id!=peer.id);waiting.push({id:peer.id,nick:NICK,want:WANT,conn:null});tryMatch();
-  }else if(bc&&bc.open)bc.send({t:'hi',nick:NICK,want:WANT});
+    waiting=waiting.filter(w=>w.id!=peer.id);waiting.push({id:peer.id,nick:NICK,av:MY_AV,want:WANT,conn:null});tryMatch();
+  }else if(bc&&bc.open)bc.send({t:'hi',nick:NICK,av:MY_AV,want:WANT});
   else enter();
 }
 function enter(){
@@ -459,7 +761,7 @@ function client(){
   const p=peer=new Peer();wire(p);
   p.on('open',()=>{
     bc=p.connect(LOBBY,{reliable:true});
-    bc.on('open',()=>{bc.send({t:'hi',nick:NICK,want:WANT});say(srch())});
+    bc.on('open',()=>{bc.send({t:'hi',nick:NICK,av:MY_AV,want:WANT});say(srch())});
     bc.on('data',onMatch);
     bc.on('close',()=>{if(!online&&srching){say('Lobi koptu, yeniden bağlanılıyor…');setTimeout(enter,500+Math.random()*2000)}});
   });
@@ -474,7 +776,7 @@ function leave(menu){
   srching=true;show('lobby');rejoin();
 }
 
-/* ---------- Oyun Motoru (Eş Zamanlı Durum Senkronu) ---------- */
+/* ---------- Oyun Motoru ---------- */
 let GM='pool',A=null,WANT='any',srching=false,at=0,rt=0,emoInt=0,tt0=0,kt0=0,krid=-1,kdone=-1,kph='',khd=3,lph='',lastChat=0,SB=[0,0],END=false,sbh='';
 let selectedEmojiChip=null,draggedEmojiIdx=null;
 
@@ -489,10 +791,10 @@ const PH=['Bol şans! 🍀','HAHAHA 😂','Ne oyundu! 🔥','Eline sağlık 👏
 const IC=['✊','✋','✌️'],TK=['Taş','Kağıt','Makas'];
 const EMOJI_SET=['🐶','🍕','🚀','⚡','🌈','🎸','👑','🔥','💎','🍀','🎯','🍦'];
 const STROOP=[
-  {name:'KIRMIZI',hex:'#e74c3c'},
-  {name:'MAVİ',hex:'#3498db'},
-  {name:'YEŞİL',hex:'#2ecc71'},
-  {name:'SARI',hex:'#f1c40f'}
+  {name:'KIRMIZI',hex:'#ef4444'},
+  {name:'MAVİ',hex:'#3b82f6'},
+  {name:'YEŞİL',hex:'#22c55e'},
+  {name:'SARI',hex:'#eab308'}
 ];
 const srch=()=>'Rakip aranıyor… ('+(WANT=='any'?'rastgele oyun':LAB[WANT])+')';
 
@@ -506,12 +808,12 @@ function setView(){
 function later(f,ms){clearTimeout(at);at=setTimeout(()=>{if(A)f()},ms)}
 const kerr=i=>A.res.reduce((a,r)=>a+Math.abs(r.e[i]-r.tg),0);
 
-/* --- Düz Araba Yarışı (3 Tur / Yuvarlak Kontrol Noktaları) --- */
+/* --- Duz Araba Yarisi (3 Tur / Yuvarlak Kontrol Noktalari) --- */
 function carTick(){
   if(!A||GM!='car'||A.ph!='run')return;
   const now=Date.now();
-  const lapLen=500; // Her 500 birim 1 yuvarlak tur
-  const totalDist=lapLen*A.laps; // 3 tur = 1500
+  const lapLen=500;
+  const totalDist=lapLen*A.laps;
   for(let i=0;i<2;i++){
     const o=A.p[i];
     A.p[i]+=A.v[i]*.075;
@@ -532,7 +834,7 @@ function carTick(){
   if(A.ph=='run')rt=setTimeout(carTick,66);
 }
 
-/* --- Emoji Ezber & Sürükle-Bırak (3 Üstte, 3 Altta) --- */
+/* --- Emoji Ezber & Bagimsiz Surukle-Birak (3 Ustte, 3 Altta) --- */
 function startEmojiMemorize(){
   A.ph='mem';
   A.secLeft=8;
@@ -545,12 +847,27 @@ function startEmojiMemorize(){
       clearInterval(emoInt);
       A.ph='place';
       A.pool=[...A.target].sort(()=>Math.random()-.5);
-      A.slots=[null,null,null,null,null,null];
+      A.slotsByPlayer=[[null,null,null,null,null,null],[null,null,null,null,null,null]];
       A.submitted=[false,false];
       A.startPlaceTs=Date.now();
     }
     pushAlt();
   },1000);
+}
+
+function finalizeEmojiGame(){
+  A.ph='end';
+  for(let p=0;p<2;p++){
+    if(!A.submitted[p]){
+      let cor=0;
+      for(let i=0;i<6;i++)if(A.slotsByPlayer[p][i]===A.target[i])cor++;
+      A.score[p]=cor;
+      if(A.times[p]>=999)A.times[p]=12;
+    }
+  }
+  if(A.score[0]!=A.score[1])A.win=A.score[0]>A.score[1]?0:1;
+  else if(Math.abs(A.times[0]-A.times[1])>.2)A.win=A.times[0]<A.times[1]?0:1;
+  else A.win=-1;
 }
 
 function spawnB(){if(A&&GM=='bal'&&A.win<0){A.cell=Math.floor(Math.random()*9);pushAlt()}}
@@ -584,9 +901,19 @@ function initAlt(){
   clearTimers();
   if(GM=='emo'){
     const picks=[...EMOJI_SET].sort(()=>Math.random()-.5).slice(0,6);
-    A={target:picks,pool:[],slots:[null,null,null,null,null,null],submitted:[false,false],score:[0,0],times:[999,999],ph:'wait',secLeft:8,win:-1};
+    A={
+      target:picks,
+      pool:[],
+      slotsByPlayer:[[null,null,null,null,null,null],[null,null,null,null,null,null]],
+      submitted:[false,false],
+      score:[0,0],
+      times:[999,999],
+      ph:'wait',
+      secLeft:8,
+      win:-1
+    };
     pushAlt();
-    later(()=>startEmojiMemorize(),2000); // İki cihaz aynı anda 2 sn sonra ezberlemeye başlar
+    later(()=>startEmojiMemorize(),2000);
   }
   else if(GM=='car'){
     A={p:[0,0],v:[0,0],j:[0,0],h:[0,0],laps:3,ob:[180,360,680,860,1180,1360],ph:'wait',win:-1};
@@ -619,7 +946,9 @@ function altView(){
     return{
       ph:A.ph,secLeft:A.secLeft,
       target:A.ph=='mem'?A.target:null,
-      pool:A.pool,slots:A.slots,
+      checkTarget:A.ph=='end'?A.target:null,
+      pool:A.pool,
+      slotsByPlayer:A.slotsByPlayer,
       d:A.submitted,sc:A.score,times:A.times,
       end:A.ph=='end'
     };
@@ -629,7 +958,7 @@ function altView(){
     return{
       p:A.p.map(x=>Math.round(x)),
       lap:A.p.map(x=>Math.min(A.laps,Math.floor(x/lapLen)+1)),
-      cp:A.p.map(x=>Math.floor((x%lapLen)/125)), // 0..3 yuvarlak işaretçi
+      cp:A.p.map(x=>Math.floor((x%lapLen)/125)),
       laps:A.laps,lapLen,
       j:A.j.map(x=>x>n),h:A.h.map(x=>x>n),
       ob:A.ob,ph:A.ph,d:[false,false],end:A.ph=='end'
@@ -658,36 +987,36 @@ function winOf(){
 function altMsg(){
   const sc=A.sc?A.sc.join('–'):'';
   if(GM=='emo'){
-    if(A.ph=='wait')return 'İki cihaz da hazır! 2.5 sn sonra 3+3 emoji açılıyor…';
+    if(A.ph=='wait')return 'İki cihaz da hazır! 2 sn sonra 3 üst + 3 alt emoji açılıyor…';
     if(A.ph=='mem')return `Yerleri ezberle! ${A.secLeft} saniye kaldı…`;
-    if(A.ph=='place')return 'Kenardaki emojileri sürükle-bırak ile (veya tıklayarak) üst/alt 3x2 alana diz!';
-    if(A.ph=='end')return A.win>=0?`${nicks[A.win]} kazandı! (${A.score[0]}/6 – ${A.score[1]}/6)`:`Berabere! (${A.score[0]}/6 – ${A.score[1]}/6)`;
+    if(A.ph=='place')return 'Kendi dizilimini kur! Kenardan sürükle-bırak veya tıkla.';
+    if(A.ph=='end')return A.win>=0?`${av(A.win)} ${nicks[A.win]} kazandı! (${A.score[0]}/6 – ${A.score[1]}/6)`:`Berabere! (${A.score[0]}/6 – ${A.score[1]}/6)`;
   }
   if(GM=='car'){
     if(A.ph=='wait')return 'Hazırlan! Düz pistte 3 yuvarlak tur başlıyor…';
-    if(A.ph=='end')return A.win>=0?`${nicks[A.win]} yarışı kazandı! 🏁`:'Berabere!';
+    if(A.ph=='end')return A.win>=0?`${av(A.win)} ${nicks[A.win]} yarışı kazandı! 🏁`:'Berabere!';
     return 'GAZ (Boşluk / Buton) ile hızlan, engelde ZIPLA (↑ / Buton) 🚧';
   }
   if(GM=='mem'){
-    if(A.own.every(x=>x>=0)){const[a,b]=A.sc;return a==b?'Berabere!':nicks[a>b?0:1]+' kazandı!'}
-    return nicks[A.cur]+' sırası: iki kart aç.';
+    if(A.own.every(x=>x>=0)){const[a,b]=A.sc;return a==b?'Berabere!':av(a>b?0:1)+' '+nicks[a>b?0:1]+' kazandı!'}
+    return av(A.cur)+' '+nicks[A.cur]+' sırası: iki kart aç.';
   }
-  if(GM=='num')return A.win>=0?nicks[A.win]+' kazandı! Sayı '+A.sec+' idi.':nicks[A.cur]+' sırası: 1–100 arası tahmin et.';
+  if(GM=='num')return A.win>=0?av(A.win)+' '+nicks[A.win]+' kazandı! Sayı '+A.sec+' idi.':av(A.cur)+' '+nicks[A.cur]+' sırası: 1–100 arası tahmin et.';
   if(GM=='kro'){
-    if(A.ph=='end'){const a=kerr(0),b=kerr(1);return a==b?'Berabere!':nicks[a<b?0:1]+' kazandı!'}
+    if(A.ph=='end'){const a=kerr(0),b=kerr(1);return a==b?'Berabere!':av(a<b?0:1)+' '+nicks[a<b?0:1]+' kazandı!'}
     return 'Tur '+(A.r+1)+'/3';
   }
-  if(GM=='tkm')return A.win>=0?nicks[A.win]+' kazandı! ('+sc+')':'Önce 3 puan alan kazanır · '+sc;
-  if(GM=='ref')return A.win>=0?nicks[A.win]+' kazandı! ('+sc+')':A.ph=='go'?'ŞİMDİ BAS!':A.ph=='wait'?'Yeşil olunca bas, erken basma! · '+sc:'Önce 3 puan alan kazanır · '+sc;
+  if(GM=='tkm')return A.win>=0?av(A.win)+' '+nicks[A.win]+' kazandı! ('+sc+')':'Önce 3 puan alan kazanır · '+sc;
+  if(GM=='ref')return A.win>=0?av(A.win)+' '+nicks[A.win]+' kazandı! ('+sc+')':A.ph=='go'?'ŞİMDİ BAS!':A.ph=='wait'?'Yeşil olunca bas, erken basma! · '+sc:'Önce 3 puan alan kazanır · '+sc;
   if(GM=='tap'){
-    if(A.ph=='end'){const[a,b]=A.n;return a==b?'Berabere! ('+a+')':nicks[a>b?0:1]+' kazandı! ('+a+'–'+b+')'}
+    if(A.ph=='end'){const[a,b]=A.n;return a==b?'Berabere! ('+a+')':av(a>b?0:1)+' '+nicks[a>b?0:1]+' kazandı! ('+a+'–'+b+')'}
     return A.ph=='wait'?'Hazırlan! 2.5 saniye sonra başlıyor…':'BAS BAS BAS! ⚡';
   }
-  if(GM=='bal')return A.win>=0?nicks[A.win]+' kazandı! ('+sc+')':'Önce 8 balonu patlatan kazanır · '+sc;
-  if(GM=='mat')return A.win>=0?nicks[A.win]+' kazandı! ('+sc+')':'Önce 5 soruyu bilen kazanır · '+sc;
-  if(GM=='col')return A.win>=0?nicks[A.win]+' kazandı! ('+sc+')':'Yazının RENGİNE bas! Önce 5 puan · '+sc;
-  if(GM=='aim')return A.win>=0?nicks[A.win]+' kazandı! ('+sc+')':'Parlayan hedefe en hızlı bas! Önce 7 puan · '+sc;
-  if(A.ph=='end')return A.win>=0?nicks[A.win]+' kazandı! ('+sc+')':'Berabere! ('+sc+')';
+  if(GM=='bal')return A.win>=0?av(A.win)+' '+nicks[A.win]+' kazandı! ('+sc+')':'Önce 8 balonu patlatan kazanır · '+sc;
+  if(GM=='mat')return A.win>=0?av(A.win)+' '+nicks[A.win]+' kazandı! ('+sc+')':'Önce 5 soruyu bilen kazanır · '+sc;
+  if(GM=='col')return A.win>=0?av(A.win)+' '+nicks[A.win]+' kazandı! ('+sc+')':'Yazının RENGİNE bas! Önce 5 puan · '+sc;
+  if(GM=='aim')return A.win>=0?av(A.win)+' '+nicks[A.win]+' kazandı! ('+sc+')':'Parlayan hedefe en hızlı bas! Önce 7 puan · '+sc;
+  if(A.ph=='end')return A.win>=0?av(A.win)+' '+nicks[A.win]+' kazandı! ('+sc+')':'Berabere! ('+sc+')';
   return 'Atış '+(Math.floor(A.k/2)+1)+'/5 · Skor '+sc;
 }
 
@@ -715,14 +1044,12 @@ function renderAlt(m){
   };
   let ld=-1;
   if(kr&&s.res.length){const a=tot(0),b=tot(1);if(a!=b)ld=a<b?0:1}
-  else{const v=GM=='tap'?s.n:GM=='car'?s.p:GM=='emo'?s.sc:s.sc;if(v&&v[0]!=v[1])ld=v[0]>v[1]?0:1}
+  else{const v=GM=='tap'?s.n:GM=='car'?s.p:s.sc;if(v&&v[0]!=v[1])ld=v[0]>v[1]?0:1}
 
-  let h='<div class="sc">'+[0,1].map(i=>`<span class="${on(i)?'on':''}">${ld==i?'👑 ':''}${on(i)?'▶ ':''}${esc(nicks[i])}${i==me?' (sen)':''}${sf(i)?' · '+sf(i):''}</span>`).join('')+'</div>';
+  let h='<div class="sc">'+[0,1].map(i=>`<span class="${on(i)?'on':''}">${ld==i?'👑 ':''}${on(i)?'▶ ':''}${av(i)} ${esc(nicks[i])}${i==me?' (sen)':''}${sf(i)?' · '+sf(i):''}</span>`).join('')+'</div>';
 
-  // Hızlı tiklama akisi
   if(GM=='tap'&&s.ph=='run'&&$('tb')){$('alt').firstElementChild.outerHTML=h;return}
 
-  // Duz pist araba yarisi guncellemesi
   if(GM=='car'&&s.ph=='run'&&wasRun&&$('car0')){
     $('alt').firstElementChild.outerHTML=h;
     const lapLen=s.lapLen||500;
@@ -743,7 +1070,7 @@ function renderAlt(m){
 
   if(GM=='emo'){
     if(s.ph=='wait'){
-      h+=`<p class="big">⏳</p><p class="big2">İki oyuncu da aynı anda başlıyor…</p>`;
+      h+=`<p class="big">⏳</p><p class="big2">İki cihaz da aynı anda başlıyor…</p>`;
     }else if(s.ph=='mem'){
       const pct=Math.max(0,Math.min(100,(s.secLeft/8)*100));
       h+=`<p class="big2">Ezberleme Süresi: ${s.secLeft} sn</p>
@@ -753,32 +1080,48 @@ function renderAlt(m){
             <div class="emo-row">${(s.target||[]).slice(3,6).map((em,i)=>`<div class="emo-slot filled"><span class="idx">A${i+1}</span>${em}</div>`).join('')}</div>
           </div>`;
     }else if(s.ph=='place'){
+      const mySlots=(s.slotsByPlayer&&s.slotsByPlayer[me])||[null,null,null,null,null,null];
       const doneMe=s.d&&s.d[me];
       h+=`<div class="emo-layout">
             <div class="emo-board">
-              <div class="big2">Üst 3 Slot</div>
-              <div class="emo-row">${[0,1,2].map(i=>`<div class="emo-slot${s.slots[i]?' filled':''}" data-slot="${i}"><span class="idx">Ü${i+1}</span>${s.slots[i]||''}</div>`).join('')}</div>
-              <div class="big2">Alt 3 Slot</div>
-              <div class="emo-row">${[3,4,5].map(i=>`<div class="emo-slot${s.slots[i]?' filled':''}" data-slot="${i}"><span class="idx">A${i-2}</span>${s.slots[i]||''}</div>`).join('')}</div>
+              <div class="big2">Senin Dizilimin — Üst 3</div>
+              <div class="emo-row">${[0,1,2].map(i=>`<div class="emo-slot${mySlots[i]?' filled':''}" data-slot="${i}"><span class="idx">Ü${i+1}</span>${mySlots[i]||''}</div>`).join('')}</div>
+              <div class="big2">Senin Dizilimin — Alt 3</div>
+              <div class="emo-row">${[3,4,5].map(i=>`<div class="emo-slot${mySlots[i]?' filled':''}" data-slot="${i}"><span class="idx">A${i-2}</span>${mySlots[i]||''}</div>`).join('')}</div>
             </div>
             <div class="emo-dock">
               <div class="emo-dock-title">Emoji Havuzu</div>
               <div class="emo-pool">${(s.pool||[]).map((em,idx)=>{
-                const used=s.slots.includes(em);
+                const used=mySlots.includes(em);
                 const sel=selectedEmojiChip===idx;
                 return `<div class="emo-chip${used?' used':''}${sel?' sel':''}" draggable="${!used&&!doneMe}" data-pool-idx="${idx}" data-emo="${em}">${em}</div>`;
               }).join('')}</div>
-              <button id="emoClear" ${doneMe?'disabled':''} style="background:var(--line);color:var(--fg)">Temizle</button>
-              <button id="emoSubmit" ${doneMe||s.slots.some(x=>!x)?'disabled':''}>Dizilimi Gönder</button>
-              ${doneMe?'<p><small>Gönderildi! Rakip bekleniyor…</small></p>':''}
+              <button id="emoClear" ${doneMe?'disabled':''} style="background:var(--line);color:var(--fg);box-shadow:none">Temizle</button>
+              <button id="emoSubmit" ${doneMe||mySlots.some(x=>!x)?'disabled':''}>Dizilimi Gönder</button>
+              ${doneMe?'<p><small>Dizilimin gönderildi! Rakip bekleniyor…</small></p>':''}
             </div>
           </div>`;
     }else if(s.ph=='end'){
+      const tgt=s.checkTarget||[];
+      const mySlots=(s.slotsByPlayer&&s.slotsByPlayer[me])||[];
+      const oppSlots=(s.slotsByPlayer&&s.slotsByPlayer[1-me])||[];
+      const renderResultBoard=(title,arr)=>`
+        <div class="emo-board">
+          <div class="big2">${title}</div>
+          <div class="emo-row">${[0,1,2].map(i=>{
+            const ok=arr[i]===tgt[i];
+            return `<div class="emo-slot ${ok?'correct':'wrong'}"><span class="idx">Ü${i+1}</span>${arr[i]||'?'}<span class="tag">${ok?'✓':'✗ '+tgt[i]}</span></div>`;
+          }).join('')}</div>
+          <div class="emo-row">${[3,4,5].map(i=>{
+            const ok=arr[i]===tgt[i];
+            return `<div class="emo-slot ${ok?'correct':'wrong'}"><span class="idx">A${i-2}</span>${arr[i]||'?'}<span class="tag">${ok?'✓':'✗ '+tgt[i]}</span></div>`;
+          }).join('')}</div>
+        </div>`;
       h+=`<p class="big">${s.win>=0?'🏆':'🤝'}</p>
-          <p class="big2">${esc(nicks[0])}: ${s.sc[0]}/6 (${s.times[0].toFixed(1)}s) · ${esc(nicks[1])}: ${s.sc[1]}/6 (${s.times[1].toFixed(1)}s)</p>
-          <div class="emo-board" style="max-width:460px;margin:10px auto">
-            <div class="emo-row">${(s.slots||[]).slice(0,3).map((em,i)=>`<div class="emo-slot filled"><span class="idx">Ü${i+1}</span>${em||'?'}</div>`).join('')}</div>
-            <div class="emo-row">${(s.slots||[]).slice(3,6).map((em,i)=>`<div class="emo-slot filled"><span class="idx">A${i+1}</span>${em||'?'}</div>`).join('')}</div>
+          <p class="big2">${av(0)} ${esc(nicks[0])}: ${s.sc[0]}/6 (${s.times[0].toFixed(1)}s) · ${av(1)} ${esc(nicks[1])}: ${s.sc[1]}/6 (${s.times[1].toFixed(1)}s)</p>
+          <div class="emo-layout" style="grid-template-columns:1fr 1fr">
+            ${renderResultBoard('Senin Dizilimin',mySlots)}
+            ${renderResultBoard(av(1-me)+' '+esc(nicks[1-me])+' Dizilimi',oppSlots)}
           </div>`;
     }
   }
@@ -789,39 +1132,39 @@ function renderAlt(m){
       const cpIdx=s.cp?s.cp[i]:0;
       const rings=[0,1,2,3].map(k=>`<div class="cp-ring${k<cpIdx||s.end?' done':''}" id="cp_${i}_${k}" style="left:${20+k*22}%">○</div>`).join('');
       return `<div class="lane">
-        <span class="lane-lbl">${esc(nicks[i])} · Tur ${s.lap?s.lap[i]:1}/${s.laps||3}</span>
+        <span class="lane-lbl">${av(i)} ${esc(nicks[i])} · Tur ${s.lap?s.lap[i]:1}/${s.laps||3}</span>
         ${rings}
         <div class="car-tok${s.h&&s.h[i]?' hit':''}" id="car${i}" style="left:${pct}%;transform:translateY(${s.j&&s.j[i]?-14:0}px)">${s.h&&s.h[i]?'💥':(i==me?'🏎️':'🚙')}</div>
       </div>`;
     }).join('')+`</div>
     <div class="car-ctrls">
       <button id="carGas" ${s.ph!='run'?'disabled':''}>⚡ GAZ (Boşluk)</button>
-      <button id="carJump" ${s.ph!='run'?'disabled':''} style="background:var(--ok);color:#fff">⬆️ ZIPLA (Yukarı)</button>
+      <button id="carJump" ${s.ph!='run'?'disabled':''} style="background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff">⬆️ ZIPLA (Yukarı)</button>
     </div></div>`;
   }
   else if(GM=='mem')h+='<div class="mg">'+s.c.map((x,i)=>`<button class="cd${x?' up':''}" data-i="${i}" ${my&&!x&&!s.end?'':'disabled'}>${x||'?'}</button>`).join('')+'</div>';
-  else if(GM=='num')h+='<ul>'+s.log.map(l=>`<li>${esc(nicks[l[0]])}: ${l[1]} → ${l[2]==0?'Doğru! 🎉':l[2]>0?'Daha büyük':'Daha küçük'}</li>`).join('')+'</ul>'+(my&&!s.end?'<input id="gn" type="number" min="1" max="100" placeholder="1–100"> <button id="gb">Tahmin et</button>':'');
+  else if(GM=='num')h+='<ul>'+s.log.map(l=>`<li>${av(l[0])} ${esc(nicks[l[0]])}: ${l[1]} → ${l[2]==0?'Doğru! 🎉':l[2]>0?'Daha büyük':'Daha küçük'}</li>`).join('')+'</ul>'+(my&&!s.end?'<input id="gn" type="number" min="1" max="100" placeholder="1–100"> <button id="gb">Tahmin et</button>':'');
   else if(kr){
     if(s.rid!=krid){krid=s.rid;kt0=performance.now()}
     khd=s.h;
     kph=s.ph=='run'&&!s.d[me]&&kdone!=krid?'run':'x';
     h+=`<p>Tur ${s.r+1}/3 · Hedef: <b>${s.tg} saniye</b>. Sayaç 3. ya da 5. saniyede kaybolur; içinden say, hedefe gelince DUR'a bas!</p><p class="big" id="kt">${kph=='run'?'0.00':'⏱'}</p>`;
     if(s.ph=='run')h+=s.d[me]||kdone==krid?'<p>Bastın! Rakip bekleniyor…</p>':'<button id="kb" class="dur">DUR</button>';
-    h+='<ul>'+s.res.map(r=>`<li>Hedef ${r.tg} sn → ${esc(nicks[0])}: ${r.e[0].toFixed(2)} · ${esc(nicks[1])}: ${r.e[1].toFixed(2)}</li>`).join('')+'</ul>';
+    h+='<ul>'+s.res.map(r=>`<li>Hedef ${r.tg} sn → ${av(0)} ${esc(nicks[0])}: ${r.e[0].toFixed(2)} · ${av(1)} ${esc(nicks[1])}: ${r.e[1].toFixed(2)}</li>`).join('')+'</ul>';
   }
   else if(GM=='tkm'){
     if(s.ph=='pick')h+=s.d[me]?'<p>Rakibin seçmesi bekleniyor…</p>':`<p class="big2">Seçimini yap!</p><div class="pb">${IC.map((d,i)=>`<button data-m="${i}">${d}<br><small>${TK[i]}</small></button>`).join('')}</div>`;
-    else if(s.last)h+=`<p class="big">${IC[s.last.p[0]]} vs ${IC[s.last.p[1]]}</p><p>${s.last.w<0?'Berabere, tekrar!':esc(nicks[s.last.w])+' turu aldı!'}</p>`;
+    else if(s.last)h+=`<p class="big">${IC[s.last.p[0]]} vs ${IC[s.last.p[1]]}</p><p>${s.last.w<0?'Berabere, tekrar!':av(s.last.w)+' '+esc(nicks[s.last.w])+' turu aldı!'}</p>`;
   }
   else if(GM=='ref'){
-    if(s.ph=='wait'||s.ph=='go')h+=`<p class="big2">${s.ph=='go'?'ŞİMDİ!':'Bekle… yeşil olunca bas'}</p><button data-r="1" class="dur" style="background:${s.ph=='go'?'#1f8a4c':'#d23a2c'};color:#fff;min-width:60%">${s.ph=='go'?'BAS!':'BEKLE…'}</button>`;
-    else if(s.last)h+=`<p class="big">${s.last.foul?'😈':'⚡'}</p><p>${esc(nicks[s.last.w])} puanı aldı ${s.last.foul?'(rakip erken bastı)':'('+s.last.ms+' ms)'}</p>`;
+    if(s.ph=='wait'||s.ph=='go')h+=`<p class="big2">${s.ph=='go'?'ŞİMDİ!':'Bekle… yeşil olunca bas'}</p><button data-r="1" class="dur" style="background:${s.ph=='go'?'#16a34a':'#dc2626'};color:#fff;min-width:60%">${s.ph=='go'?'BAS!':'BEKLE…'}</button>`;
+    else if(s.last)h+=`<p class="big">${s.last.foul?'😈':'⚡'}</p><p>${av(s.last.w)} ${esc(nicks[s.last.w])} puanı aldı ${s.last.foul?'(rakip erken bastı)':'('+s.last.ms+' ms)'}</p>`;
   }
   else if(GM=='tap'){
-    h+=s.ph=='wait'?'<p class="big">Hazırlan… ⏳</p>':s.ph=='run'?'<p class="big2">8 saniye! Olabildiğince hızlı bas!</p><button id="tb" class="dur" style="background:var(--acc);color:#14181f;min-width:60%">BAS! ⚡</button>':'<p class="big">🏁 Süre Doldu!</p>';
+    h+=s.ph=='wait'?'<p class="big">Hazırlan… ⏳</p>':s.ph=='run'?'<p class="big2">8 saniye! Olabildiğince hızlı bas!</p><button id="tb" class="dur" style="min-width:60%">BAS! ⚡</button>':'<p class="big">🏁 Süre Doldu!</p>';
   }
   else if(GM=='bal'){
-    h+='<div class="mg" style="grid-template-columns:repeat(3,1fr);max-width:300px">'+[0,1,2,3,4,5,6,7,8].map(i=>`<button class="cd${s.cell==i?' up':''}" data-bal="${i}" style="background:${s.cell==i?'#e74c3c':'var(--line)'}">${s.cell==i?'🎈':'·'}</button>`).join('')+'</div>';
+    h+='<div class="mg" style="grid-template-columns:repeat(3,1fr);max-width:300px">'+[0,1,2,3,4,5,6,7,8].map(i=>`<button class="cd${s.cell==i?' up':''}" data-bal="${i}" style="background:${s.cell==i?'#ef4444':'var(--line)'}">${s.cell==i?'🎈':'·'}</button>`).join('')+'</div>';
   }
   else if(GM=='mat'){
     h+=`<p class="big">${esc(s.q||'')}</p><p><input id="matInp" type="number" placeholder="Cevap"> <button id="matBtn">Gönder</button></p>`;
@@ -834,7 +1177,7 @@ function renderAlt(m){
   }
   else{
     if(s.ph=='pick')h+=s.d[me]?'<p>Rakibin seçmesi bekleniyor…</p>':`<p class="big2">Penaltı yönü seç!</p><div class="pb"><button data-m="0">◀ Sol</button><button data-m="1">▲ Orta</button><button data-m="2">Sağ ▶</button></div>`;
-    else if(s.last)h+=`<p class="big">${s.last.g?'⚽ GOL!':'🧤 KURTARIŞ!'}</p><p>${esc(nicks[s.last.sh])} şut çekti, ${esc(nicks[s.last.gk])} kaledeydi.</p>`;
+    else if(s.last)h+=`<p class="big">${s.last.g?'⚽ GOL!':'🧤 KURTARIŞ!'}</p><p>${av(s.last.sh)} ${esc(nicks[s.last.sh])} şut çekti, ${av(s.last.gk)} ${esc(nicks[s.last.gk])} kaledeydi.</p>`;
   }
 
   $('alt').innerHTML=h;
@@ -843,7 +1186,6 @@ function renderAlt(m){
 
 function bindAltEvents(){
   const alt=$('alt');
-  // Emoji surukle-birak ve tikla-birak
   alt.querySelectorAll('.emo-chip').forEach(chip=>{
     const idx=+chip.dataset.poolIdx;
     const emo=chip.dataset.emo;
@@ -859,6 +1201,7 @@ function bindAltEvents(){
     };
   });
   alt.querySelectorAll('.emo-slot').forEach(slot=>{
+    if(slot.dataset.slot===undefined)return;
     const slotIdx=+slot.dataset.slot;
     slot.ondragover=e=>{e.preventDefault();slot.classList.add('over')};
     slot.ondragleave=()=>slot.classList.remove('over');
@@ -873,7 +1216,7 @@ function bindAltEvents(){
       if(selectedEmojiChip!=null){
         sendAction({t:'emo_put',slot:slotIdx,poolIdx:selectedEmojiChip});
         selectedEmojiChip=null;
-      }else if(slot.textContent.replace(/^Ü\d|^A\d/,'').trim()){
+      }else{
         sendAction({t:'emo_clr_slot',slot:slotIdx});
       }
     };
@@ -881,48 +1224,17 @@ function bindAltEvents(){
   if($('emoClear'))$('emoClear').onclick=()=>{selectedEmojiChip=null;sendAction({t:'emo_clr'})};
   if($('emoSubmit'))$('emoSubmit').onclick=()=>sendAction({t:'emo_sub'});
 
-  // Araba butonlari
   if($('carGas'))$('carGas').onclick=()=>sendAction({t:'cg'});
   if($('carJump'))$('carJump').onclick=()=>sendAction({t:'cj'});
-
-  // Hafiza
   alt.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>sendAction({t:'f',i:+b.dataset.i}));
-
-  // Sayi tahmini
-  if($('gb'))$('gb').onclick=()=>{
-    const v=+$('gn').value;
-    if(v>=1&&v<=100)sendAction({t:'n',v});
-  };
-
-  // Kronometre
-  if($('kb'))$('kb').onclick=()=>{
-    const el=((performance.now()-kt0)/1000);
-    kdone=krid;
-    sendAction({t:'k',el});
-  };
-
-  // TKM / Penalti
+  if($('gb'))$('gb').onclick=()=>{const v=+$('gn').value;if(v>=1&&v<=100)sendAction({t:'n',v})};
+  if($('kb'))$('kb').onclick=()=>{const el=((performance.now()-kt0)/1000);kdone=krid;sendAction({t:'k',el})};
   alt.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>sendAction({t:'m',v:+b.dataset.m}));
-
-  // Refleks
   alt.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>sendAction({t:'r',ts:Date.now()}));
-
-  // Tiklama yarisi
   if($('tb'))$('tb').onclick=()=>sendAction({t:'tp'});
-
-  // Balon avi
   alt.querySelectorAll('[data-bal]').forEach(b=>b.onclick=()=>sendAction({t:'bl',c:+b.dataset.bal}));
-
-  // Hizli hesap
-  if($('matBtn'))$('matBtn').onclick=()=>{
-    const v=+$('matInp').value;
-    sendAction({t:'mt',v});
-  };
-
-  // Renk refleksi
+  if($('matBtn'))$('matBtn').onclick=()=>sendAction({t:'mt',v:+$('matInp').value});
   alt.querySelectorAll('[data-col]').forEach(b=>b.onclick=()=>sendAction({t:'cl',v:b.dataset.col}));
-
-  // Hedef vurma
   alt.querySelectorAll('[data-aim]').forEach(b=>b.onclick=()=>sendAction({t:'am',c:+b.dataset.aim}));
 }
 
@@ -936,28 +1248,26 @@ function handleAct(m,p){
   const op=1-p;
 
   if(GM=='emo'&&A.ph=='place'&&!A.submitted[p]){
+    const pSlots=A.slotsByPlayer[p];
     if(m.t=='emo_put'){
       const emo=A.pool[m.poolIdx];
-      if(emo&&!A.slots.includes(emo)&&m.slot>=0&&m.slot<6){
-        A.slots[m.slot]=emo;
+      if(emo&&!pSlots.includes(emo)&&m.slot>=0&&m.slot<6){
+        pSlots[m.slot]=emo;
         pushAlt();
       }
     }else if(m.t=='emo_clr_slot'){
-      if(m.slot>=0&&m.slot<6){A.slots[m.slot]=null;pushAlt()}
+      if(m.slot>=0&&m.slot<6){pSlots[m.slot]=null;pushAlt()}
     }else if(m.t=='emo_clr'){
-      A.slots=[null,null,null,null,null,null];
+      A.slotsByPlayer[p]=[null,null,null,null,null,null];
       pushAlt();
-    }else if(m.t=='emo_sub'&&!A.slots.some(x=>!x)){
+    }else if(m.t=='emo_sub'&&!pSlots.some(x=>!x)){
       let cor=0;
-      for(let i=0;i<6;i++)if(A.slots[i]===A.target[i])cor++;
+      for(let i=0;i<6;i++)if(pSlots[i]===A.target[i])cor++;
       A.score[p]=cor;
       A.times[p]=Math.max(.1,(Date.now()-(A.startPlaceTs||Date.now()))/1000);
       A.submitted[p]=true;
       if(A.submitted[0]&&A.submitted[1]){
-        A.ph='end';
-        if(A.score[0]!=A.score[1])A.win=A.score[0]>A.score[1]?0:1;
-        else if(Math.abs(A.times[0]-A.times[1])>.2)A.win=A.times[0]<A.times[1]?0:1;
-        else A.win=-1;
+        finalizeEmojiGame();
       }
       pushAlt();
     }
@@ -1060,7 +1370,7 @@ function handleAct(m,p){
   }
 }
 
-/* ---------- Skor Tablosu, Sohbet ve İstekler ---------- */
+/* ---------- Skor Tablosu, Sohbet ve Istekler ---------- */
 function addWin(w){
   if(w==0||w==1)SB[w]++;
   if(conn&&conn.open)conn.send({t:'B',sb:SB});
@@ -1070,9 +1380,9 @@ function renderSB(){
   const el=$('sb');
   if(!online){el.hidden=true;return}
   el.hidden=false;
-  const sig=JSON.stringify([SB,nicks,me]);
+  const sig=JSON.stringify([SB,nicks,avatars,me]);
   if(sig==sbh)return;sbh=sig;
-  el.textContent=`Genel Skor · ${nicks[0]}${me==0?' (sen)':''}: ${SB[0]} — ${nicks[1]}${me==1?' (sen)':''}: ${SB[1]}`;
+  el.textContent=`Genel Skor · ${av(0)} ${nicks[0]}${me==0?' (sen)':''}: ${SB[0]} — ${av(1)} ${nicks[1]}${me==1?' (sen)':''}: ${SB[1]}`;
 }
 function dlg(html){$('dlc').innerHTML=html;$('dl').hidden=false}
 function dlgHide(){$('dl').hidden=true}
@@ -1097,7 +1407,7 @@ function reqData(m){
   if(m.t=='rq'){
     if(!isHost)return;
     pendingReq={g:m.g};
-    dlg(`<h2>🎮 Oyun İsteği</h2><p>${esc(nicks[1])} <b>${esc(LAB[m.g]||m.g)}</b> oynamak istiyor.</p><button data-a="acc_req">Kabul Et</button><button data-a="dec_req" style="background:var(--line);color:var(--fg)">Reddet</button>`);
+    dlg(`<h2>🎮 Oyun İsteği</h2><p>${av(1)} ${esc(nicks[1])} <b>${esc(LAB[m.g]||m.g)}</b> oynamak istiyor.</p><button data-a="acc_req">Kabul Et</button><button data-a="dec_req" style="background:var(--line);color:var(--fg);box-shadow:none">Reddet</button>`);
   }else if(m.t=='rn'){
     toast('Rakip isteği reddetti.');
   }else if(m.t=='ra'){
@@ -1109,9 +1419,9 @@ function startGameAsHost(gName){
   GM=gName;END=false;
   if(GM=='pool'){
     reset();hs='';hud();
-    if(conn&&conn.open)conn.send({t:'i',game:GM,nums:balls.slice(1).map(b=>b.n),nicks,re:true});
+    if(conn&&conn.open)conn.send({t:'i',game:GM,nums:balls.slice(1).map(b=>b.n),nicks,avatars,re:true});
   }else{
-    if(conn&&conn.open)conn.send({t:'i',game:GM,nicks,re:true});
+    if(conn&&conn.open)conn.send({t:'i',game:GM,nicks,avatars,re:true});
     initAlt();
   }
   setView();
@@ -1126,15 +1436,17 @@ function toast(txt){
   clearTimeout(tt0);tt0=setTimeout(()=>{el.hidden=true},2400);
 }
 function chat(i,fromGuest){
+  const idx=fromGuest?1:0;
   const txt=PH[i]||PH[0];
-  toast(`${nicks[fromGuest?1:0]}: ${txt}`);
+  toast(`${av(idx)} ${nicks[idx]}: ${txt}`);
   if(isHost&&fromGuest&&conn&&conn.open)conn.send({t:'c',i});
 }
 
-/* ---------- Menü, Klavye ve Döngü ---------- */
+/* ---------- Menu, Klavye ve Dongu ---------- */
 document.querySelectorAll('#s1 [data-w]').forEach(btn=>{
   btn.onclick=()=>{
     NICK=($('nk').value.trim()||'Oyuncu').slice(0,14);
+    avatars=[MY_AV,AVATARS[1]];
     WANT=btn.dataset.w;
     srching=true;
     show('lobby');
