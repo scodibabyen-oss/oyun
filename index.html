@@ -302,57 +302,47 @@ button:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
 }
 input{-webkit-user-select:text;user-select:text}
 #dl{position:fixed;inset:0;z-index:8;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;padding:20px}
-#dlc{background:var(--card);border:2px solid var(--acc);border-radius:16px;padding:20px;width:min(380px,100%);box-sizing:border-box;text-align:center;display:flex;flex-direction:column;gap:10px}
+#dlc{background:var(--card);border:2px solid var(--acc);border-radius:16px;padding:20px;width:min(390px,100%);box-sizing:border-box;text-align:center;display:flex;flex-direction:column;gap:10px;box-shadow:0 16px 36px rgba(0,0,0,.28)}
 #dlc h2{margin:0;font-size:1.25rem}#dlc p{margin:0}
+.dlg-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:4px}
 #hint{font-size:.8rem;opacity:.8;text-align:center}
 
-/* Duz Araba Pisti & Yuvarlak Isaretciler */
-.track-wrap{display:flex;flex-direction:column;gap:10px;margin:10px 0}
-.road{position:relative;background:linear-gradient(180deg,#1f2430,#2a3142);border:3px solid var(--acc2);border-radius:14px;padding:12px 14px;overflow:hidden}
-.lane{position:relative;height:46px;display:flex;align-items:center;border-bottom:2px dashed rgba(255,255,255,.24)}
-.lane:last-child{border-bottom:0}
-.lane-lbl{position:absolute;left:8px;font-size:.74rem;opacity:.82;color:#fff;pointer-events:none;z-index:1;font-weight:800}
-.cp-ring{position:absolute;top:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;border:3px solid rgba(250,204,21,.75);background:rgba(250,204,21,.15);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fde047;font-weight:800;pointer-events:none}
-.cp-ring.done{border-color:#22c55e;background:rgba(34,197,94,.3);color:#86efac}
-.car-tok{position:absolute;left:0;top:50%;transform:translateY(-50%);font-size:1.75rem;line-height:1;transition:left .06s linear,transform .08s ease;z-index:2;filter:drop-shadow(0 2px 4px rgba(0,0,0,.55))}
-.car-tok.hit{filter:drop-shadow(0 0 8px #ef4444)}
-.car-ctrls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-
-/* Emoji Ezber & Surukle-Birak */
-.emo-layout{display:grid;grid-template-columns:1fr 235px;gap:14px;align-items:start;margin-top:10px}
-@media (max-width:760px){.emo-layout{grid-template-columns:1fr}}
+/* Emoji Ezber 12'li Sutun/Izgara & Bagimsiz Surukle-Birak */
+.emo-layout{display:grid;grid-template-columns:1fr 250px;gap:14px;align-items:start;margin-top:10px}
+@media (max-width:800px){.emo-layout{grid-template-columns:1fr}}
 .emo-board{display:flex;flex-direction:column;gap:10px;background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:12px}
-.emo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.emo-col-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media (max-width:520px){.emo-col-grid{grid-template-columns:repeat(3,1fr)}}
 .emo-slot{
-  aspect-ratio:1.25;
+  aspect-ratio:1.15;
   border:2px dashed var(--line);
   border-radius:12px;
   background:var(--card);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:2.2rem;
+  font-size:2rem;
   cursor:pointer;
   position:relative;
   transition:border-color .15s,background .15s,transform .12s;
 }
-.emo-slot.over{border-color:var(--acc);background:rgba(255,107,43,.16);transform:scale(1.02)}
+.emo-slot.over{border-color:var(--acc);background:rgba(255,107,43,.16);transform:scale(1.03)}
 .emo-slot.filled{border-style:solid;border-color:var(--acc2)}
 .emo-slot.correct{border-style:solid;border-color:var(--ok);background:rgba(22,163,74,.18)}
 .emo-slot.wrong{border-style:solid;border-color:var(--bad);background:rgba(220,38,38,.18)}
-.emo-slot .idx{position:absolute;top:5px;left:8px;font-size:.7rem;opacity:.65;font-weight:800}
-.emo-slot .tag{position:absolute;bottom:4px;right:7px;font-size:.68rem;font-weight:800}
+.emo-slot .idx{position:absolute;top:4px;left:6px;font-size:.66rem;opacity:.65;font-weight:800}
+.emo-slot .tag{position:absolute;bottom:3px;right:6px;font-size:.66rem;font-weight:800}
 .emo-slot.correct .tag{color:var(--ok)}
 .emo-slot.wrong .tag{color:var(--bad)}
 .emo-dock{background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
 .emo-dock-title{font-size:.88rem;font-weight:800;text-align:center;color:var(--acc2)}
-.emo-pool{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.emo-pool{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .emo-chip{
   aspect-ratio:1;
   border:2px solid var(--line);
   border-radius:10px;
   background:var(--card);
-  font-size:1.9rem;
+  font-size:1.65rem;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -365,7 +355,7 @@ input{-webkit-user-select:text;user-select:text}
 .prog-bar{width:100%;max-width:420px;height:12px;background:var(--line);border-radius:999px;overflow:hidden;margin:8px auto}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .25s linear}
 
-/* Hedef Vurma */
+/* Hedef Vurma & Zincir Refleks */
 .aim-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:440px;margin:12px auto}
 .aim-cell{aspect-ratio:1;border-radius:12px;border:2px solid var(--line);background:var(--bg);font-size:1.8rem;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:none}
 .aim-cell.active{background:linear-gradient(135deg,var(--acc),var(--acc2));border-color:var(--fg)}
@@ -393,8 +383,8 @@ input{-webkit-user-select:text;user-select:text}
     <p>veya oynamak istediğin oyunu seç:</p>
     <div class="gs">
       <button data-w="pool">🎱 Bilardo</button>
-      <button data-w="emo">🧩 Emoji Ezber</button>
-      <button data-w="car">🏎️ Araba yarışı</button>
+      <button data-w="emo">🧩 Emoji Tahmin (12)</button>
+      <button data-w="chn">⚡ Zincir Refleks</button>
       <button data-w="mem">🧠 Hafıza</button>
       <button data-w="num">🔢 Sayı tahmini</button>
       <button data-w="kro">⏱️ Kronometre</button>
@@ -429,8 +419,7 @@ input{-webkit-user-select:text;user-select:text}
 
 <script>
 /* ---------- Giris Animasyonu & Avatarlar ---------- */
-const AVATARS=['🦊','🐼','🦁','🐯','🐸','🐧','🤖','👾','🦄','🐲','🐺','🦉','🐙',' Koala'.trim(),'🐵','😎'];
-AVATARS[13]='🐨';
+const AVATARS=['🦊','🐼','🦁','🐯','🐸','🐧','🤖','👾','🦄','🐲','🐺','🦉','🐙','🐨','🐵','😎'];
 let MY_AV=AVATARS[0];
 
 (function buildBrand(){
@@ -655,7 +644,7 @@ function draw(){
 }
 
 /* ---------- Online & Eslestirme ---------- */
-const $=id=>document.getElementById(id),LOBBY='bil8-lobby-v2';
+const $=id=>document.getElementById(id),LOBBY='bil8-lobby-v3';
 let peer,bc,brokerMode=false,waiting=[],wt,hostWait=false,NICK='';
 function say(t){$('s2').textContent=t}
 function show(s){$('ov').hidden=s=='game';$('s1').hidden=s!='nick';$('s2').hidden=s=='nick';$('cn').hidden=s!='lobby';$('ch').hidden=s!='game'}
@@ -669,9 +658,10 @@ function applyS(s){
   hud();
 }
 const clamp=v=>Math.max(0,Math.min(1,+v||0));
+
 function hostData(m){
   if(m.t=='c')return chat(m.i,1);
-  if(m.t=='v')return rematch();
+  if(m.t=='v')return startGameAsHost(GM);
   if(m.t=='rq'||m.t=='rn'||m.t=='ra')return reqData(m);
   if(GM!='pool'){if(online)handleAct(m,1);return}
   if(cur!=1||!online)return;
@@ -689,7 +679,7 @@ function guestData(m){
   else if(m.t=='S'&&online&&GM=='pool')applyS(m);
   else if(m.t=='A'&&online)renderAlt(m);
   else if(m.t=='B')SB=m.sb;
-  else if(m.t=='rq'||m.t=='rn')reqData(m);
+  else if(m.t=='rq'||m.t=='rn'||m.t=='ra')reqData(m);
   else if(m.t=='c')chat(m.i,0);
 }
 function oppLeft(){
@@ -697,7 +687,7 @@ function oppLeft(){
   clearTimers();
   if(GM=='pool'){if(st!='over'){st='over';winner=me;hs='';hud()}}else A=null;
   M.textContent='Rakip oyundan ayrıldı.';
-  dlg(`<h2>🚪 ${av(1-me)} ${esc(nicks[1-me])} oyundan çıktı</h2><p>Bağlantı kapandı. Yeni bir rakip bulabilir ya da menüye dönebilirsin.</p><button data-a="find">Yeni rakip bul</button><button data-a="menu">Menü</button>`);
+  dlg(`<h2>🚪 ${av(1-me)} ${esc(nicks[1-me])} oyundan çıktı</h2><p>Bağlantı kapandı. Yeni bir rakip bulabilir ya da menüye dönebilirsin.</p><div class="dlg-btns"><button data-a="find">Yeni rakip bul</button><button data-a="menu">Menü</button></div>`);
 }
 function startHost(c,nick,oppAv){
   clearTimeout(wt);hostWait=false;conn=c;isHost=true;me=0;online=true;nicks=[NICK,nick];avatars=[MY_AV,oppAv||AVATARS[1]];SB=[0,0];END=false;
@@ -780,16 +770,16 @@ function leave(menu){
 let GM='pool',A=null,WANT='any',srching=false,at=0,rt=0,emoInt=0,tt0=0,kt0=0,krid=-1,kdone=-1,kph='',khd=3,lph='',lastChat=0,SB=[0,0],END=false,sbh='';
 let selectedEmojiChip=null,draggedEmojiIdx=null;
 
-const GAMES=['pool','emo','car','mem','num','kro','pen','tkm','ref','tap','bal','mat','col','aim'];
+const GAMES=['pool','emo','chn','mem','num','kro','pen','tkm','ref','tap','bal','mat','col','aim'];
 const LAB={
-  pool:'Bilardo',emo:'Emoji Ezber',car:'Araba yarışı',mem:'Hafıza',
+  pool:'Bilardo',emo:'Emoji Tahmin (12)',chn:'Zincir Refleks',mem:'Hafıza',
   num:'Sayı tahmini',kro:'Kronometre',pen:'Penaltı',tkm:'Taş Kağıt Makas',
   ref:'Refleks',tap:'Tıklama yarışı',bal:'Balon avı',mat:'Hızlı hesap',
   col:'Renk refleksi',aim:'Hedef vurma'
 };
 const PH=['Bol şans! 🍀','HAHAHA 😂','Ne oyundu! 🔥','Eline sağlık 👏','Olamaz 😱','Tekrar? 🔁'];
 const IC=['✊','✋','✌️'],TK=['Taş','Kağıt','Makas'];
-const EMOJI_SET=['🐶','🍕','🚀','⚡','🌈','🎸','👑','🔥','💎','🍀','🎯','🍦'];
+const EMOJI_SET=['🐶','🍕','🚀','⚡','🌈','🎸','👑','🔥','💎','🍀','🎯','🍦','🦄','🍓','🎮','⚽'];
 const STROOP=[
   {name:'KIRMIZI',hex:'#ef4444'},
   {name:'MAVİ',hex:'#3b82f6'},
@@ -808,33 +798,7 @@ function setView(){
 function later(f,ms){clearTimeout(at);at=setTimeout(()=>{if(A)f()},ms)}
 const kerr=i=>A.res.reduce((a,r)=>a+Math.abs(r.e[i]-r.tg),0);
 
-/* --- Duz Araba Yarisi (3 Tur / Yuvarlak Kontrol Noktalari) --- */
-function carTick(){
-  if(!A||GM!='car'||A.ph!='run')return;
-  const now=Date.now();
-  const lapLen=500;
-  const totalDist=lapLen*A.laps;
-  for(let i=0;i<2;i++){
-    const o=A.p[i];
-    A.p[i]+=A.v[i]*.075;
-    A.v[i]*=.92;
-    for(const x of A.ob){
-      if(o<x&&A.p[i]>=x&&A.j[i]<now){
-        A.v[i]*=.2;
-        A.h[i]=now+550;
-      }
-    }
-    if(A.p[i]>=totalDist&&A.win<0){
-      A.p[i]=totalDist;
-      A.win=i;
-      A.ph='end';
-    }
-  }
-  pushAlt();
-  if(A.ph=='run')rt=setTimeout(carTick,66);
-}
-
-/* --- Emoji Ezber & Bagimsiz Surukle-Birak (3 Ustte, 3 Altta) --- */
+/* --- Emoji Tahmin (12'li Izgara / 4x3 Sutun & En Iyi Tahmin) --- */
 function startEmojiMemorize(){
   A.ph='mem';
   A.secLeft=8;
@@ -847,7 +811,7 @@ function startEmojiMemorize(){
       clearInterval(emoInt);
       A.ph='place';
       A.pool=[...A.target].sort(()=>Math.random()-.5);
-      A.slotsByPlayer=[[null,null,null,null,null,null],[null,null,null,null,null,null]];
+      A.slotsByPlayer=[Array(12).fill(null),Array(12).fill(null)];
       A.submitted=[false,false];
       A.startPlaceTs=Date.now();
     }
@@ -860,14 +824,23 @@ function finalizeEmojiGame(){
   for(let p=0;p<2;p++){
     if(!A.submitted[p]){
       let cor=0;
-      for(let i=0;i<6;i++)if(A.slotsByPlayer[p][i]===A.target[i])cor++;
+      for(let i=0;i<12;i++)if(A.slotsByPlayer[p][i]===A.target[i])cor++;
       A.score[p]=cor;
-      if(A.times[p]>=999)A.times[p]=12;
+      if(A.times[p]>=999)A.times[p]=18;
     }
   }
+  // En yuksek dogru tahmin yapan kazanir; esitse en hizli bitiren
   if(A.score[0]!=A.score[1])A.win=A.score[0]>A.score[1]?0:1;
-  else if(Math.abs(A.times[0]-A.times[1])>.2)A.win=A.times[0]<A.times[1]?0:1;
+  else if(Math.abs(A.times[0]-A.times[1])>.15)A.win=A.times[0]<A.times[1]?0:1;
   else A.win=-1;
+}
+
+/* --- Zincir Refleks (Araba Yarisi Yerine) --- */
+function spawnChain(){
+  if(!A||GM!='chn'||A.win>=0)return;
+  A.cell=Math.floor(Math.random()*12);
+  A.bonus=Math.random()<.3; // %30 sansla +2 puanlik yildiz hedef
+  pushAlt();
 }
 
 function spawnB(){if(A&&GM=='bal'&&A.win<0){A.cell=Math.floor(Math.random()*9);pushAlt()}}
@@ -900,11 +873,11 @@ function initAlt(){
   krid=-1;kdone=-1;selectedEmojiChip=null;draggedEmojiIdx=null;
   clearTimers();
   if(GM=='emo'){
-    const picks=[...EMOJI_SET].sort(()=>Math.random()-.5).slice(0,6);
+    const picks=[...EMOJI_SET].sort(()=>Math.random()-.5).slice(0,12);
     A={
       target:picks,
       pool:[],
-      slotsByPlayer:[[null,null,null,null,null,null],[null,null,null,null,null,null]],
+      slotsByPlayer:[Array(12).fill(null),Array(12).fill(null)],
       submitted:[false,false],
       score:[0,0],
       times:[999,999],
@@ -915,10 +888,10 @@ function initAlt(){
     pushAlt();
     later(()=>startEmojiMemorize(),2000);
   }
-  else if(GM=='car'){
-    A={p:[0,0],v:[0,0],j:[0,0],h:[0,0],laps:3,ob:[180,360,680,860,1180,1360],ph:'wait',win:-1};
+  else if(GM=='chn'){
+    A={sc:[0,0],streak:[0,0],cell:-1,bonus:false,win:-1};
     pushAlt();
-    later(()=>{if(A&&GM=='car'){A.ph='run';carTick()}},2500);
+    later(()=>spawnChain(),1200);
   }
   else if(GM=='mem'){
     const e=['🍎','🚀','🐱','🎲','🌙','🍕','⚽','🎸'],c=[...e,...e].sort(()=>Math.random()-.5);
@@ -953,17 +926,7 @@ function altView(){
       end:A.ph=='end'
     };
   }
-  if(GM=='car'){
-    const n=Date.now(),lapLen=500;
-    return{
-      p:A.p.map(x=>Math.round(x)),
-      lap:A.p.map(x=>Math.min(A.laps,Math.floor(x/lapLen)+1)),
-      cp:A.p.map(x=>Math.floor((x%lapLen)/125)),
-      laps:A.laps,lapLen,
-      j:A.j.map(x=>x>n),h:A.h.map(x=>x>n),
-      ob:A.ob,ph:A.ph,d:[false,false],end:A.ph=='end'
-    };
-  }
+  if(GM=='chn')return{sc:A.sc,streak:A.streak,cell:A.cell,bonus:A.bonus,d:[false,false],ph:'x',end:A.win>=0};
   if(GM=='mem')return{c:A.c.map((x,i)=>A.open.includes(i)||A.own[i]>=0?x:null),cur:A.cur,sc:A.sc,end:A.own.every(x=>x>=0)};
   if(GM=='num')return{log:A.log,cur:A.cur,end:A.win>=0};
   if(GM=='kro')return{rid:A.rid,r:A.r,tg:A.tg[A.r],h:A.hd[A.r],d:[A.e[0]!=null,A.e[1]!=null],res:A.res,ph:A.ph,end:A.ph=='end'};
@@ -987,16 +950,12 @@ function winOf(){
 function altMsg(){
   const sc=A.sc?A.sc.join('–'):'';
   if(GM=='emo'){
-    if(A.ph=='wait')return 'İki cihaz da hazır! 2 sn sonra 3 üst + 3 alt emoji açılıyor…';
-    if(A.ph=='mem')return `Yerleri ezberle! ${A.secLeft} saniye kaldı…`;
-    if(A.ph=='place')return 'Kendi dizilimini kur! Kenardan sürükle-bırak veya tıkla.';
-    if(A.ph=='end')return A.win>=0?`${av(A.win)} ${nicks[A.win]} kazandı! (${A.score[0]}/6 – ${A.score[1]}/6)`:`Berabere! (${A.score[0]}/6 – ${A.score[1]}/6)`;
+    if(A.ph=='wait')return 'İki cihaz da hazır! 2 sn sonra 12 emoji açılıyor…';
+    if(A.ph=='mem')return `12 emojinin yerini ezberle! ${A.secLeft} saniye kaldı…`;
+    if(A.ph=='place')return '12 kutuya sürükle-bırak veya tıkla ile yerleştir; en iyi tahmin kazanır!';
+    if(A.ph=='end')return A.win>=0?`${av(A.win)} ${nicks[A.win]} en iyi tahminle kazandı! (${A.score[0]}/12 – ${A.score[1]}/12)`:`Berabere! (${A.score[0]}/12 – ${A.score[1]}/12)`;
   }
-  if(GM=='car'){
-    if(A.ph=='wait')return 'Hazırlan! Düz pistte 3 yuvarlak tur başlıyor…';
-    if(A.ph=='end')return A.win>=0?`${av(A.win)} ${nicks[A.win]} yarışı kazandı! 🏁`:'Berabere!';
-    return 'GAZ (Boşluk / Buton) ile hızlan, engelde ZIPLA (↑ / Buton) 🚧';
-  }
+  if(GM=='chn')return A.win>=0?`${av(A.win)} ${nicks[A.win]} kazandı! (${sc})`:'Parlayan halkaya en hızlı bas! 🌟 +2 bonus · İlk 10 puan';
   if(GM=='mem'){
     if(A.own.every(x=>x>=0)){const[a,b]=A.sc;return a==b?'Berabere!':av(a>b?0:1)+' '+nicks[a>b?0:1]+' kazandı!'}
     return av(A.cur)+' '+nicks[A.cur]+' sırası: iki kart aç.';
@@ -1029,44 +988,26 @@ function pushAlt(){
 }
 
 function renderAlt(m){
-  GM=m.game;const s=m.s,pk=GM=='pen',kr=GM=='kro',my=s.cur==me;END=!!s.end;const wasRun=lph=='run';lph=s.ph;
+  GM=m.game;const s=m.s,pk=GM=='pen',kr=GM=='kro',my=s.cur==me;END=!!s.end;lph=s.ph;
   if(M.textContent!=m.m)M.textContent=m.m;
-  const on=i=>(s.end||['emo','ref','tap','car','bal','mat','col','aim'].includes(GM))?0:(GM=='mem'||GM=='num')?s.cur==i:!s.d[i]&&s.ph==((pk||GM=='tkm')?'pick':'run');
+  const on=i=>(s.end||['emo','chn','ref','tap','bal','mat','col','aim'].includes(GM))?0:(GM=='mem'||GM=='num')?s.cur==i:!s.d[i]&&s.ph==((pk||GM=='tkm')?'pick':'run');
   const tot=i=>s.res.reduce((a,r)=>a+Math.abs(r.e[i]-r.tg),0);
   const sf=i=>{
-    if(GM=='emo')return (s.sc?s.sc[i]:0)+'/6';
+    if(GM=='emo')return (s.sc?s.sc[i]:0)+'/12';
+    if(GM=='chn')return (s.sc?s.sc[i]:0)+' puan'+(s.streak&&s.streak[i]>1?' 🔥'+s.streak[i]:'');
     if(GM=='mem')return s.sc[i]+' çift';
     if(pk)return s.sc[i]+' gol';
     if(kr&&s.res.length)return tot(i).toFixed(2)+' sn fark';
     if(GM=='tap')return s.n[i]+' tık';
-    if(GM=='car')return `Tur ${s.lap?s.lap[i]:1}/${s.laps||3}`;
     return s.sc?s.sc[i]+' puan':'';
   };
   let ld=-1;
   if(kr&&s.res.length){const a=tot(0),b=tot(1);if(a!=b)ld=a<b?0:1}
-  else{const v=GM=='tap'?s.n:GM=='car'?s.p:s.sc;if(v&&v[0]!=v[1])ld=v[0]>v[1]?0:1}
+  else{const v=GM=='tap'?s.n:s.sc;if(v&&v[0]!=v[1])ld=v[0]>v[1]?0:1}
 
   let h='<div class="sc">'+[0,1].map(i=>`<span class="${on(i)?'on':''}">${ld==i?'👑 ':''}${on(i)?'▶ ':''}${av(i)} ${esc(nicks[i])}${i==me?' (sen)':''}${sf(i)?' · '+sf(i):''}</span>`).join('')+'</div>';
 
   if(GM=='tap'&&s.ph=='run'&&$('tb')){$('alt').firstElementChild.outerHTML=h;return}
-
-  if(GM=='car'&&s.ph=='run'&&wasRun&&$('car0')){
-    $('alt').firstElementChild.outerHTML=h;
-    const lapLen=s.lapLen||500;
-    [0,1].forEach(i=>{
-      const e=$('car'+i);
-      const pct=Math.min(92,((s.p[i]%lapLen)/lapLen)*92);
-      e.style.left=pct+'%';
-      e.style.transform='translateY('+(s.j[i]?-14:0)+'px)';
-      e.textContent=s.h[i]?'💥':(i==me?'🏎️':'🚙');
-      const cpIdx=s.cp?s.cp[i]:0;
-      for(let k=0;k<4;k++){
-        const ring=$('cp_'+i+'_'+k);
-        if(ring)ring.classList.toggle('done',k<cpIdx||s.end);
-      }
-    });
-    return;
-  }
 
   if(GM=='emo'){
     if(s.ph=='wait'){
@@ -1076,71 +1017,53 @@ function renderAlt(m){
       h+=`<p class="big2">Ezberleme Süresi: ${s.secLeft} sn</p>
           <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
           <div class="emo-board">
-            <div class="emo-row">${(s.target||[]).slice(0,3).map((em,i)=>`<div class="emo-slot filled"><span class="idx">Ü${i+1}</span>${em}</div>`).join('')}</div>
-            <div class="emo-row">${(s.target||[]).slice(3,6).map((em,i)=>`<div class="emo-slot filled"><span class="idx">A${i+1}</span>${em}</div>`).join('')}</div>
+            <div class="emo-col-grid">${(s.target||[]).map((em,i)=>`<div class="emo-slot filled"><span class="idx">#${i+1}</span>${em}</div>`).join('')}</div>
           </div>`;
     }else if(s.ph=='place'){
-      const mySlots=(s.slotsByPlayer&&s.slotsByPlayer[me])||[null,null,null,null,null,null];
+      const mySlots=(s.slotsByPlayer&&s.slotsByPlayer[me])||Array(12).fill(null);
       const doneMe=s.d&&s.d[me];
       h+=`<div class="emo-layout">
             <div class="emo-board">
-              <div class="big2">Senin Dizilimin — Üst 3</div>
-              <div class="emo-row">${[0,1,2].map(i=>`<div class="emo-slot${mySlots[i]?' filled':''}" data-slot="${i}"><span class="idx">Ü${i+1}</span>${mySlots[i]||''}</div>`).join('')}</div>
-              <div class="big2">Senin Dizilimin — Alt 3</div>
-              <div class="emo-row">${[3,4,5].map(i=>`<div class="emo-slot${mySlots[i]?' filled':''}" data-slot="${i}"><span class="idx">A${i-2}</span>${mySlots[i]||''}</div>`).join('')}</div>
+              <div class="big2">Senin 12'li Dizilimin</div>
+              <div class="emo-col-grid">${[...Array(12)].map((_,i)=>`<div class="emo-slot${mySlots[i]?' filled':''}" data-slot="${i}"><span class="idx">#${i+1}</span>${mySlots[i]||''}</div>`).join('')}</div>
             </div>
             <div class="emo-dock">
-              <div class="emo-dock-title">Emoji Havuzu</div>
+              <div class="emo-dock-title">12 Emoji Havuzu</div>
               <div class="emo-pool">${(s.pool||[]).map((em,idx)=>{
                 const used=mySlots.includes(em);
                 const sel=selectedEmojiChip===idx;
                 return `<div class="emo-chip${used?' used':''}${sel?' sel':''}" draggable="${!used&&!doneMe}" data-pool-idx="${idx}" data-emo="${em}">${em}</div>`;
               }).join('')}</div>
               <button id="emoClear" ${doneMe?'disabled':''} style="background:var(--line);color:var(--fg);box-shadow:none">Temizle</button>
-              <button id="emoSubmit" ${doneMe||mySlots.some(x=>!x)?'disabled':''}>Dizilimi Gönder</button>
-              ${doneMe?'<p><small>Dizilimin gönderildi! Rakip bekleniyor…</small></p>':''}
+              <button id="emoSubmit" ${doneMe||mySlots.some(x=>!x)?'disabled':''}>Tahmini Gönder</button>
+              ${doneMe?'<p><small>Tahminin gönderildi! Rakip bekleniyor…</small></p>':''}
             </div>
           </div>`;
     }else if(s.ph=='end'){
       const tgt=s.checkTarget||[];
       const mySlots=(s.slotsByPlayer&&s.slotsByPlayer[me])||[];
       const oppSlots=(s.slotsByPlayer&&s.slotsByPlayer[1-me])||[];
-      const renderResultBoard=(title,arr)=>`
+      const renderRes12=(title,arr)=>`
         <div class="emo-board">
           <div class="big2">${title}</div>
-          <div class="emo-row">${[0,1,2].map(i=>{
+          <div class="emo-col-grid">${[...Array(12)].map((_,i)=>{
             const ok=arr[i]===tgt[i];
-            return `<div class="emo-slot ${ok?'correct':'wrong'}"><span class="idx">Ü${i+1}</span>${arr[i]||'?'}<span class="tag">${ok?'✓':'✗ '+tgt[i]}</span></div>`;
-          }).join('')}</div>
-          <div class="emo-row">${[3,4,5].map(i=>{
-            const ok=arr[i]===tgt[i];
-            return `<div class="emo-slot ${ok?'correct':'wrong'}"><span class="idx">A${i-2}</span>${arr[i]||'?'}<span class="tag">${ok?'✓':'✗ '+tgt[i]}</span></div>`;
+            return `<div class="emo-slot ${ok?'correct':'wrong'}"><span class="idx">#${i+1}</span>${arr[i]||'?'}<span class="tag">${ok?'✓':'✗ '+tgt[i]}</span></div>`;
           }).join('')}</div>
         </div>`;
       h+=`<p class="big">${s.win>=0?'🏆':'🤝'}</p>
-          <p class="big2">${av(0)} ${esc(nicks[0])}: ${s.sc[0]}/6 (${s.times[0].toFixed(1)}s) · ${av(1)} ${esc(nicks[1])}: ${s.sc[1]}/6 (${s.times[1].toFixed(1)}s)</p>
+          <p class="big2">${av(0)} ${esc(nicks[0])}: <b>${s.sc[0]}/12</b> (${s.times[0].toFixed(1)}s) · ${av(1)} ${esc(nicks[1])}: <b>${s.sc[1]}/12</b> (${s.times[1].toFixed(1)}s)</p>
           <div class="emo-layout" style="grid-template-columns:1fr 1fr">
-            ${renderResultBoard('Senin Dizilimin',mySlots)}
-            ${renderResultBoard(av(1-me)+' '+esc(nicks[1-me])+' Dizilimi',oppSlots)}
+            ${renderRes12('Senin 12\'li Tahminin',mySlots)}
+            ${renderRes12(av(1-me)+' '+esc(nicks[1-me])+' Tahmini',oppSlots)}
           </div>`;
     }
   }
-  else if(GM=='car'){
-    const lapLen=s.lapLen||500;
-    h+=`<div class="track-wrap"><div class="road">`+[0,1].map(i=>{
-      const pct=Math.min(92,(((s.p?s.p[i]:0)%lapLen)/lapLen)*92);
-      const cpIdx=s.cp?s.cp[i]:0;
-      const rings=[0,1,2,3].map(k=>`<div class="cp-ring${k<cpIdx||s.end?' done':''}" id="cp_${i}_${k}" style="left:${20+k*22}%">○</div>`).join('');
-      return `<div class="lane">
-        <span class="lane-lbl">${av(i)} ${esc(nicks[i])} · Tur ${s.lap?s.lap[i]:1}/${s.laps||3}</span>
-        ${rings}
-        <div class="car-tok${s.h&&s.h[i]?' hit':''}" id="car${i}" style="left:${pct}%;transform:translateY(${s.j&&s.j[i]?-14:0}px)">${s.h&&s.h[i]?'💥':(i==me?'🏎️':'🚙')}</div>
-      </div>`;
-    }).join('')+`</div>
-    <div class="car-ctrls">
-      <button id="carGas" ${s.ph!='run'?'disabled':''}>⚡ GAZ (Boşluk)</button>
-      <button id="carJump" ${s.ph!='run'?'disabled':''} style="background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff">⬆️ ZIPLA (Yukarı)</button>
-    </div></div>`;
+  else if(GM=='chn'){
+    h+='<div class="aim-grid">'+[...Array(12)].map((_,i)=>{
+      const act=s.cell===i;
+      return `<button class="aim-cell${act?' active':''}" data-chn="${i}">${act?(s.bonus?'🌟':'⚡'):''}</button>`;
+    }).join('')+'</div>';
   }
   else if(GM=='mem')h+='<div class="mg">'+s.c.map((x,i)=>`<button class="cd${x?' up':''}" data-i="${i}" ${my&&!x&&!s.end?'':'disabled'}>${x||'?'}</button>`).join('')+'</div>';
   else if(GM=='num')h+='<ul>'+s.log.map(l=>`<li>${av(l[0])} ${esc(nicks[l[0]])}: ${l[1]} → ${l[2]==0?'Doğru! 🎉':l[2]>0?'Daha büyük':'Daha küçük'}</li>`).join('')+'</ul>'+(my&&!s.end?'<input id="gn" type="number" min="1" max="100" placeholder="1–100"> <button id="gb">Tahmin et</button>':'');
@@ -1224,8 +1147,7 @@ function bindAltEvents(){
   if($('emoClear'))$('emoClear').onclick=()=>{selectedEmojiChip=null;sendAction({t:'emo_clr'})};
   if($('emoSubmit'))$('emoSubmit').onclick=()=>sendAction({t:'emo_sub'});
 
-  if($('carGas'))$('carGas').onclick=()=>sendAction({t:'cg'});
-  if($('carJump'))$('carJump').onclick=()=>sendAction({t:'cj'});
+  alt.querySelectorAll('[data-chn]').forEach(b=>b.onclick=()=>sendAction({t:'ch',c:+b.dataset.chn}));
   alt.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>sendAction({t:'f',i:+b.dataset.i}));
   if($('gb'))$('gb').onclick=()=>{const v=+$('gn').value;if(v>=1&&v<=100)sendAction({t:'n',v})};
   if($('kb'))$('kb').onclick=()=>{const el=((performance.now()-kt0)/1000);kdone=krid;sendAction({t:'k',el})};
@@ -1251,18 +1173,18 @@ function handleAct(m,p){
     const pSlots=A.slotsByPlayer[p];
     if(m.t=='emo_put'){
       const emo=A.pool[m.poolIdx];
-      if(emo&&!pSlots.includes(emo)&&m.slot>=0&&m.slot<6){
+      if(emo&&!pSlots.includes(emo)&&m.slot>=0&&m.slot<12){
         pSlots[m.slot]=emo;
         pushAlt();
       }
     }else if(m.t=='emo_clr_slot'){
-      if(m.slot>=0&&m.slot<6){pSlots[m.slot]=null;pushAlt()}
+      if(m.slot>=0&&m.slot<12){pSlots[m.slot]=null;pushAlt()}
     }else if(m.t=='emo_clr'){
-      A.slotsByPlayer[p]=[null,null,null,null,null,null];
+      A.slotsByPlayer[p]=Array(12).fill(null);
       pushAlt();
     }else if(m.t=='emo_sub'&&!pSlots.some(x=>!x)){
       let cor=0;
-      for(let i=0;i<6;i++)if(pSlots[i]===A.target[i])cor++;
+      for(let i=0;i<12;i++)if(pSlots[i]===A.target[i])cor++;
       A.score[p]=cor;
       A.times[p]=Math.max(.1,(Date.now()-(A.startPlaceTs||Date.now()))/1000);
       A.submitted[p]=true;
@@ -1272,9 +1194,14 @@ function handleAct(m,p){
       pushAlt();
     }
   }
-  else if(GM=='car'&&A.ph=='run'){
-    if(m.t=='cg')A.v[p]=Math.min(180,A.v[p]+34);
-    if(m.t=='cj'){const now=Date.now();if(A.j[p]<now)A.j[p]=now+450}
+  else if(GM=='chn'&&A.win<0&&m.t=='ch'&&m.c===A.cell){
+    A.streak[p]++;
+    const gain=A.bonus?2:1;
+    A.sc[p]+=gain;
+    A.cell=-1;
+    if(A.sc[0]>=10||A.sc[1]>=10)A.win=A.sc[0]>=10?0:1;
+    pushAlt();
+    if(A.win<0)later(()=>spawnChain(),380);
   }
   else if(GM=='mem'&&A.cur==p&&!A.lock){
     if(m.t=='f'&&m.i>=0&&m.i<16&&!A.open.includes(m.i)&&A.own[m.i]<0){
@@ -1370,7 +1297,7 @@ function handleAct(m,p){
   }
 }
 
-/* ---------- Skor Tablosu, Sohbet ve Istekler ---------- */
+/* ---------- Skor Tablosu, Sohbet ve Oyun Istekleri ---------- */
 function addWin(w){
   if(w==0||w==1)SB[w]++;
   if(conn&&conn.open)conn.send({t:'B',sb:SB});
@@ -1386,34 +1313,41 @@ function renderSB(){
 }
 function dlg(html){$('dlc').innerHTML=html;$('dl').hidden=false}
 function dlgHide(){$('dl').hidden=true}
+
+let pendingReq=null;
 $('dlc').onclick=e=>{
   const a=e.target.dataset.a;
   if(!a)return;
   dlgHide();
   if(a=='find')leave(false);
   else if(a=='menu')leave(true);
-  else if(a=='rematch')sendRematch();
+  else if(a=='rematch'){
+    if(isHost)startGameAsHost(GM);
+    else if(conn&&conn.open)conn.send({t:'v'});
+  }
   else if(a=='acc_req'&&pendingReq){
-    const g=pendingReq.g;pendingReq=null;
-    if(conn&&conn.open)conn.send({t:'ra',g});
-    startGameAsHost(g);
+    const g=pendingReq.g;
+    pendingReq=null;
+    if(isHost)startGameAsHost(g);
+    else if(conn&&conn.open)conn.send({t:'ra',g});
   }else if(a=='dec_req'){
     pendingReq=null;
     if(conn&&conn.open)conn.send({t:'rn'});
   }
 };
-let pendingReq=null;
+
 function reqData(m){
   if(m.t=='rq'){
-    if(!isHost)return;
+    const senderIdx=1-me;
     pendingReq={g:m.g};
-    dlg(`<h2>🎮 Oyun İsteği</h2><p>${av(1)} ${esc(nicks[1])} <b>${esc(LAB[m.g]||m.g)}</b> oynamak istiyor.</p><button data-a="acc_req">Kabul Et</button><button data-a="dec_req" style="background:var(--line);color:var(--fg);box-shadow:none">Reddet</button>`);
+    dlg(`<h2>🎮 Yeni Oyun İsteği</h2><p>${av(senderIdx)} ${esc(nicks[senderIdx])} <b>${esc(LAB[m.g]||m.g)}</b> oynamak istiyor.</p><div class="dlg-btns"><button data-a="acc_req">Kabul Et</button><button data-a="dec_req" style="background:var(--line);color:var(--fg);box-shadow:none">Reddet</button></div>`);
   }else if(m.t=='rn'){
-    toast('Rakip isteği reddetti.');
+    toast('Rakip oyun isteğini reddetti.');
   }else if(m.t=='ra'){
-    startGameAsHost(m.g);
+    if(isHost)startGameAsHost(m.g);
   }
 }
+
 function startGameAsHost(gName){
   if(!isHost)return;
   GM=gName;END=false;
@@ -1426,11 +1360,12 @@ function startGameAsHost(gName){
   }
   setView();
 }
+
 function sendRematch(){
   if(isHost)startGameAsHost(GM);
   else if(conn&&conn.open)conn.send({t:'v'});
 }
-function rematch(){if(isHost)startGameAsHost(GM)}
+
 function toast(txt){
   const el=$('tt');el.textContent=txt;el.hidden=false;
   clearTimeout(tt0);tt0=setTimeout(()=>{el.hidden=true},2400);
@@ -1442,7 +1377,7 @@ function chat(i,fromGuest){
   if(isHost&&fromGuest&&conn&&conn.open)conn.send({t:'c',i});
 }
 
-/* ---------- Menu, Klavye ve Dongu ---------- */
+/* ---------- Menu ve Dongu ---------- */
 document.querySelectorAll('#s1 [data-w]').forEach(btn=>{
   btn.onclick=()=>{
     NICK=($('nk').value.trim()||'Oyuncu').slice(0,14);
@@ -1457,11 +1392,14 @@ $('cn').onclick=()=>leave(true);
 $('rs').onclick=()=>leave(false);
 $('mn').onclick=()=>leave(true);
 $('rv').onclick=()=>sendRematch();
+
+// Her iki oyuncu da bastiginda karsi tarafa istek gonderir; oyun hemen degismez
 $('rq').onclick=()=>{
-  if(!online)return;
-  const pick=GAMES[Math.floor(Math.random()*GAMES.length)];
-  if(isHost)startGameAsHost(pick);
-  else if(conn&&conn.open){conn.send({t:'rq',g:pick});toast(`${LAB[pick]} isteği gönderildi…`)}
+  if(!online||!conn||!conn.open)return;
+  const candidates=GAMES.filter(x=>x!==GM);
+  const pick=candidates[Math.floor(Math.random()*candidates.length)]||GAMES[0];
+  conn.send({t:'rq',g:pick});
+  toast(`${LAB[pick]} isteği rakibe gönderildi…`);
 };
 
 $('ch').innerHTML=PH.map((p,i)=>`<button data-c="${i}">${esc(p)}</button>`).join('');
@@ -1472,13 +1410,6 @@ $('ch').onclick=e=>{
   const i=+b.dataset.c;
   chat(i,!isHost);
   if(!isHost&&conn&&conn.open)conn.send({t:'c',i});
-};
-
-window.onkeydown=e=>{
-  if(GM=='car'&&A&&A.ph=='run'){
-    if(e.code=='Space'){e.preventDefault();sendAction({t:'cg'})}
-    if(e.code=='ArrowUp'){e.preventDefault();sendAction({t:'cj'})}
-  }
 };
 
 function loop(){
